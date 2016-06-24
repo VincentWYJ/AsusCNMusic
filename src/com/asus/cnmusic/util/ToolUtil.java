@@ -5,13 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.asus.cnmusic.R;
-
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class ToolUtil
 {
@@ -28,7 +23,7 @@ public class ToolUtil
 	
 	public static int dp2px(Context ctx, int dp)
 	{
-		if (sDensity == 0)
+		if(sDensity == 0)
 		{
 			sDensity = ctx.getResources().getDisplayMetrics().density;
 		}
@@ -37,7 +32,7 @@ public class ToolUtil
 	
 	public static int px2dp(Context ctx, int px)
 	{
-		if (sDensity == 0)
+		if(sDensity == 0)
 		{
 			sDensity = ctx.getResources().getDisplayMetrics().density;
 		}
@@ -46,7 +41,7 @@ public class ToolUtil
 	
 	public static int getScreenWidth(Context ctx)
 	{
-		if (sScreenWidth == 0)
+		if(sScreenWidth == 0)
 		{
 			sScreenWidth = ctx.getResources().getDisplayMetrics().widthPixels;
 		}
@@ -55,7 +50,7 @@ public class ToolUtil
 	
 	public static int getScreenHeight(Context ctx)
 	{
-		if (sScreenHeight == 0)
+		if(sScreenHeight == 0)
 		{
 			sScreenHeight = ctx.getResources().getDisplayMetrics().heightPixels;
 		}
@@ -69,11 +64,11 @@ public class ToolUtil
 		int hour = (int) (ms / ONE_HOUR);
 		int min = (int) ((ms % ONE_HOUR) / ONE_MIN);
 		int sec = (int) (ms % ONE_MIN) / ONE_SECOND;
-		if (hour == 0)
+		if(hour == 0)
 		{
 			//sb.append("00:");  //一般的节目不会达到10小时，所以这个判断节点可以不考虑
 		}
-		else if (hour < 10)
+		else if(hour < 10)
 		{
 			sb.append("0").append(hour).append(":");
 		}
@@ -81,11 +76,11 @@ public class ToolUtil
 		{
 			sb.append(hour).append(":");
 		}
-		if (min == 0)
+		if(min == 0)
 		{
 			sb.append("00:");
 		}
-		else if (min < 10)
+		else if(min < 10)
 		{
 			sb.append("0").append(min).append(":");
 		}
@@ -93,11 +88,11 @@ public class ToolUtil
 		{
 			sb.append(min).append(":");
 		}
-		if (sec == 0)
+		if(sec == 0)
 		{
 			sb.append("00");
 		}
-		else if (sec < 10)
+		else if(sec < 10)
 		{
 			sb.append("0").append(sec);
 		}
@@ -110,7 +105,7 @@ public class ToolUtil
 	
 	public static boolean isEmpty(String str)
 	{
-		if (str == null || str.trim().equals("") || str.trim().equals("null"))
+		if(str == null || str.trim().equals("") || str.trim().equals("null"))
 		{
 			return true;
 		}
@@ -119,7 +114,7 @@ public class ToolUtil
 	
 	public static int isInTime(String time) throws IllegalArgumentException
 	{
-		if (TextUtils.isEmpty(time) || !time.contains("-") || !time.contains(":"))
+		if(TextUtils.isEmpty(time) || !time.contains("-") || !time.contains(":"))
 		{
 			throw new IllegalArgumentException("Illegal Argument arg:" + time);
 		}
@@ -130,16 +125,16 @@ public class ToolUtil
 		{
 			long now = sdf.parse(nowStr).getTime();
 			long start = sdf.parse(args[0]).getTime();
-			if (args[1].equals("00:00"))
+			if(args[1].equals("00:00"))
 			{
 				args[1] = "23:59";
 			}
 			long end = sdf.parse(args[1]).getTime();
-			if (now > end)
+			if(now > end)
 			{
 				return -1;
 			}
-			else if (now >= start && now <= end)
+			else if(now >= start && now <= end)
 			{
 				return 0;
 			}
@@ -152,18 +147,6 @@ public class ToolUtil
 		{
 			e.printStackTrace();
 			throw new IllegalArgumentException("Illegal Argument arg:" + time);
-		}
-	}
-	
-	public static void initStatusBarColor(Activity activity){
-		if (android.os.Build.VERSION.SDK_INT > 18) {
-			Window window = activity.getWindow();
-			window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-			WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-			tintManager.setStatusBarTintEnabled(true);
-			tintManager.setNavigationBarTintEnabled(true);
-			tintManager.setStatusBarTintResource(R.color.statusbar_bg_color);
 		}
 	}
 }

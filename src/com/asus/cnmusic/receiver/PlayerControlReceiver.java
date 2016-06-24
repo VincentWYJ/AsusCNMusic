@@ -1,52 +1,50 @@
 package com.asus.cnmusic.receiver;
 
-import com.asus.cnmusic.constants.Constants;
-import com.asus.cnmusic.fragment.LocalMusicFragment;
-import com.asus.cnmusic.util.Utils;
+import com.asus.cnmusic.fragment.BaseFragment;
+import com.asus.cnmusic.fragment.LocalFragment;
+import com.asus.cnmusic.util.LocalMusicUtils;
 import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class PlayerControlReceiver extends BroadcastReceiver
-{
+public class PlayerControlReceiver extends BroadcastReceiver {
 
 	@Override
-	public void onReceive(Context context, Intent intent)
-	{
-		XmPlayerManager manager = XmPlayerManager.getInstance(context);
+	public void onReceive(Context context, Intent intent) {
+		XmPlayerManager mXmPlayerManager = XmPlayerManager.getInstance(context);
+		LocalFragment mLocalFragment = LocalFragment.getInstance();
 		String action = intent.getAction();
-		if (Constants.ACTION_CONTROL_PLAY_PAUSE.equals(action))
-		{
-			if (manager.isPlaying())
-			{
-				manager.pause();
+		if(BaseFragment.mPlayingInLocal) {
+			if(!mLocalFragment.isPlayingListEmpty()) {
+				int size = BaseFragment.mLocalPlayingList.size();
+				int targetPosition;
+				if(LocalMusicUtils.ACTION_CONTROL_PLAY_PAUSE.equals(action)) {
+					mLocalFragment.actionPauseOrPlay();
+				}else if(LocalMusicUtils.ACTION_CONTROL_PLAY_NEXT.equals(action)) {
+					targetPosition = (BaseFragment.mPlayingPosition+1) % size;
+					if(targetPosition != BaseFragment.mPlayingPosition) {
+						mLocalFragment.MusicPlay(targetPosition);
+					}
+				}else if(LocalMusicUtils.ACTION_CONTROL_PLAY_PRE.equals(action)) {
+					targetPosition = (size+LocalFragment.mPlayingPosition-1) % size;
+					if(targetPosition != BaseFragment.mPlayingPosition) {
+						mLocalFragment.MusicPlay(targetPosition);
+					}
+				}
 			}
-			else
-			{
-				manager.play();
+		}else if(LocalMusicUtils.ACTION_CONTROL_PLAY_PAUSE.equals(action)) {
+			if(mXmPlayerManager.isPlaying()) {
+				mXmPlayerManager.pause();
+			}else {
+				mXmPlayerManager.play();
 			}
-		}
-		else if (Constants.ACTION_CONTROL_PLAY_NEXT.equals(action))
-		{
-			manager.playNext();
-		}
-		else if (Constants.ACTION_CONTROL_PLAY_PRE.equals(action))
-		{
-			manager.playPre();
-		}
-		else if(!Utils.isMusicInfoEmpty()){
-			int size = LocalMusicFragment.musicInfo.size();
-			if (Utils.ACTION_CONTROL_PLAY_PAUSE.equals(action)){
-				LocalMusicFragment.actionPauseOrPlay();
-			}else if (Utils.ACTION_CONTROL_PLAY_NEXT.equals(action)){
-				LocalMusicFragment.MusicPlay((LocalMusicFragment.positionPlay+1)%size);
-			}else if (Utils.ACTION_CONTROL_PLAY_PRE.equals(action)){
-				LocalMusicFragment.MusicPlay((size+LocalMusicFragment.positionPlay-1)%size);
-			}
+		}else if(LocalMusicUtils.ACTION_CONTROL_PLAY_NEXT.equals(action)) {
+			mXmPlayerManager.playNext();
+		}else if(LocalMusicUtils.ACTION_CONTROL_PLAY_PRE.equals(action)) {
+			mXmPlayerManager.playPre();
 		}
 	}
-
 }
 

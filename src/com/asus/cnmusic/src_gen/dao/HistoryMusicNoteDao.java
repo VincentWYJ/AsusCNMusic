@@ -69,33 +69,33 @@ public class HistoryMusicNoteDao extends AbstractDao<HistoryMusicNote, Long> {
         stmt.clearBindings();
  
         Long id = entity.getId();
-        if (id != null) {
+        if(id != null) {
             stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getTitle());
  
         String album = entity.getAlbum();
-        if (album != null) {
+        if(album != null) {
             stmt.bindString(3, album);
         }
  
         String artist = entity.getArtist();
-        if (artist != null) {
+        if(artist != null) {
             stmt.bindString(4, artist);
         }
  
         Integer duration = entity.getDuration();
-        if (duration != null) {
+        if(duration != null) {
             stmt.bindLong(5, duration);
         }
  
         String path = entity.getPath();
-        if (path != null) {
+        if(path != null) {
             stmt.bindString(6, path);
         }
  
         Integer count = entity.getCount();
-        if (count != null) {
+        if(count != null) {
             stmt.bindLong(7, count);
         }
     }

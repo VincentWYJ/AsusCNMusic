@@ -42,12 +42,9 @@
         <receiver android:name="com.asus.cnmusic.receiver.PlayerControlReceiver"
             android:exported="false" >
             <intent-filter >
-                <action android:name="com.ximalaya.ting.android.opensdk.test.constants.ACTION_CONTROL_PLAY_PRE"/>
-                <action android:name="com.ximalaya.ting.android.opensdk.test.constants.ACTION_CONTROL_PLAY_PAUSE"/>
-                <action android:name="com.ximalaya.ting.android.opensdk.test.constants.ACTION_CONTROL_PLAY_NEXT"/>
-				<action android:name="com.vincent.easymusic.ACTION_CONTROL_PLAY_PAUSE"/>
-                <action android:name="com.vincent.easymusic.ACTION_CONTROL_PLAY_NEXT"/>
-                <action android:name="com.vincent.easymusic.ACTION_CONTROL_PLAY_PRE"/>
+                <action android:name="com.asus.cnmusic.ACTION_CONTROL_PLAY_PRE"/>
+                <action android:name="com.asus.cnmusic.ACTION_CONTROL_PLAY_PAUSE"/>
+                <action android:name="com.asus.cnmusic.ACTION_CONTROL_PLAY_NEXT"/>
             </intent-filter>
         </receiver>
         

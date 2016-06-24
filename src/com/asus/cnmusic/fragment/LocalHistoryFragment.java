@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.asus.cnmusic.info.GetLocalMusic;
 import com.asus.cnmusic.info.LocalMusic;
 import com.asus.cnmusic.util.LocalMusicUtils;
 import com.asus.cnmusic.view.ViewHolder;
 import com.asus.cnmusic.R;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +23,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
-public class LocalMusicFragment extends BaseFragment {
+public class LocalHistoryFragment extends BaseFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.local_list, container, false);
@@ -40,7 +37,7 @@ public class LocalMusicFragment extends BaseFragment {
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         
-    	Log.i(TAG, "LocalMusicFragment onActivityCreated");
+    	Log.i(TAG, "LocalHistoryFragment onActivityCreated");
         
         mContext= getContext();
         
@@ -51,16 +48,16 @@ public class LocalMusicFragment extends BaseFragment {
     
     @Override
     public void initListView() {
-    	mInMusicList = true;
+    	mInMusicList = false;
     	mInAlbumMusicList = false;
     	mInArtistMusicList = false;
-    	mInHistoryMusicList = false;
+    	mInHistoryMusicList = true;
     	
     	if(!new File(mPlayingMusicPath).exists()) {
     		mLocalFragment.handleFileDelete();
     	}
     	
-    	mLocalMusicList = GetLocalMusic.getLocalMusic(mContext, null, null, LocalMusicUtils.mMusicSortOrder);
+    	mLocalMusicList = mLocalFragment.getHistoryMusicList();
     	
       	if(mLocalPlayingList == null) {
       		mLocalPlayingList = new ArrayList<LocalMusic>(mLocalMusicList);
@@ -75,7 +72,7 @@ public class LocalMusicFragment extends BaseFragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				setParentMusicInfoList(false);
 				
-				if(mPlayingInMusicList && position == mPlayingPosition 
+				if(mPlayingInHistoryMusicList && position == mPlayingPosition 
 						&& mLocalFragment.isMusicEquals(mLocalMusicList.get(position))) {
 					if(mMusicPlaying) {
 						return;
@@ -85,11 +82,11 @@ public class LocalMusicFragment extends BaseFragment {
 					}
 				}
 				
-				mPlayingInMusicList = true;
+				mPlayingInMusicList = false;
 				mPlayingInAlbumMusicList = false;
 				mPlayingInArtistMusicList = false;
-				mPlayingInHistoryMusicList = false;
-
+				mPlayingInHistoryMusicList = true;
+				
 				mLocalFragment.MusicPlay(position);
 			}
 		});
@@ -101,18 +98,11 @@ public class LocalMusicFragment extends BaseFragment {
 				
 				File file = new File(localMusic.getPath());
 				if(file.exists()) {
-					//mLocalMusicPlaying = false;
-					file.delete();
-					
-					mLocalFragment.deleteHistoryMusic(localMusic);
-					
-					if(mLocalFragment.isMusicEquals(localMusic)){  //不管在哪个列表, 正在播放歌曲做不存在处理
-						mLocalFragment.handleFileDelete();
-					}
-					
-					Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-			    	scanIntent.setData(Uri.fromFile(file));
-			    	mContext.sendBroadcast(scanIntent);
+					mLocalFragment.deleteHistoryMusic(localMusic);  //删除历史记录一般来说不应该删除对应文件，看实际需求而定
+				}
+				
+				if(mPlayingInHistoryMusicList && mLocalFragment.isMusicEquals(localMusic)){  //不管在哪个列表, 正在播放歌曲做不存在处理
+					mLocalFragment.handleFileDelete();
 				}
 				
 				((Activity) mContext).runOnUiThread(new Runnable() {
@@ -121,10 +111,10 @@ public class LocalMusicFragment extends BaseFragment {
 					public void run() {
 		            	try{
 							Thread.sleep(1000);
-							if(mPlayingInMusicList) {
+							if(mPlayingInHistoryMusicList) {
 								mLocalFragment.UpdateMusicInfo(position);
 							}else{
-								mLocalMusicList = GetLocalMusic.getLocalMusic(mContext, null, null, LocalMusicUtils.mMusicSortOrder);
+								mLocalMusicList = mLocalFragment.getHistoryMusicList();
 						        getLocalMusicMapList();
 								mLocalMusicListAdapter.notifyDataSetChanged();
 							}
@@ -146,7 +136,6 @@ public class LocalMusicFragment extends BaseFragment {
     	mLocalMusicMapList.clear();
         for(int i=0; i<mLocalMusicList.size(); ++i) {
         	LocalMusic localMusic = mLocalMusicList.get(i);
-        	//Log.i(TAG, localMusic.getTitle());  //打印歌曲名称查看排序情况
         	Map<String, Object> map = new HashMap<String, Object>();
         	map.put("title", localMusic.getTitle());
         	map.put("path", localMusic.getPath());
@@ -188,7 +177,7 @@ public class LocalMusicFragment extends BaseFragment {
     			holder.intro.setText((CharSequence) localMusicMap.get("artist"));
     			holder.status.setText((CharSequence) localMusicMap.get("duration"));
     			//判断歌曲相同的条件为完整文件名(包括路径路径)
-    			if(mPlayingInMusicList && mLocalFragment.mMediaPlayer!=null 
+    			if(mPlayingInHistoryMusicList && mLocalFragment.mMediaPlayer!=null 
     					&& mLocalFragment.isMusicEquals(mLocalMusicList.get(position))) {
         	    	holder.content.setBackgroundResource(R.color.list_item_pressed_bg);
         	    }else{
@@ -209,7 +198,7 @@ public class LocalMusicFragment extends BaseFragment {
     
     public void setParentMusicInfoList(boolean needAccessFlag) {
     	if(needAccessFlag) {
-    		mLocalMusicList = GetLocalMusic.getLocalMusic(mContext, null, null, LocalMusicUtils.mMusicSortOrder);
+    		mLocalMusicList = mLocalFragment.getHistoryMusicList();
     	}
     	
     	if(mLocalPlayingList != null) {
@@ -223,7 +212,7 @@ public class LocalMusicFragment extends BaseFragment {
     
     @Override
 	public void onDestroyView() {
-    	Log.i(TAG, "LocalMusicFragment onDestroyView");
+    	Log.i(TAG, "LocalHistoryFragment onDestroyView");
     	
     	if(mLocalMusicList != null) {
 	    	mLocalMusicList.clear();

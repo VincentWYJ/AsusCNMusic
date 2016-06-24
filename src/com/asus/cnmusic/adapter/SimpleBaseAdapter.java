@@ -26,7 +26,7 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
     public int layoutId;
 
     public SimpleBaseAdapter(Context context,int layoutId,List<T> data){
-        this.mContext = context;
+        this.mContext= context;
         this.mInflater = LayoutInflater.from(context);
         this.layoutId = layoutId;
         this.mData = data;
@@ -81,7 +81,7 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
 
     public void replaceAll(List<T> elem) {
         mData.clear();
-        if (elem != null) {
+        if(elem != null) {
             mData.addAll(elem);
         }
         notifyDataSetChanged();
@@ -98,7 +98,7 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
         private Context mContext;
 
         public ViewHolder(Context context,ViewGroup parent,int layoutId,int position){
-            this.mContext = context;
+            this.mContext= context;
             this.position = position;
             this.mViews = new SparseArray<View>();
             mConvertView = LayoutInflater.from(context).inflate(layoutId,parent,false);
@@ -182,8 +182,8 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
             ImageView imageView = getView(viewId);
             Glide.with(mContext)
                     .load(url)
-                    .placeholder(R.drawable.ic_empty_state)
-                    .error(R.drawable.ic_empty_state)
+                    .placeholder(R.drawable.ic_launcher)
+                    .error(R.drawable.ic_launcher)
                     .centerCrop()
                     .into(imageView);
 
