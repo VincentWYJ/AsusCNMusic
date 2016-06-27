@@ -84,8 +84,9 @@ public class LocalArtistFragment extends BaseFragment {
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 						setParentMusicInfoList(false);	
 						
-						if(mPlayingInArtistMusicList && position == mPlayingPosition) {
-							if(mMusicPlaying) {
+						if(mPlayingInArtistMusicList && position == mPlayingPosition 
+								&& mLocalFragment.isMusicEquals(mLocalMusicList.get(position))) {
+							if(mLocalMusicPlaying) {
 								return;
 							}else {
 								mLocalFragment.actionPauseOrPlay();

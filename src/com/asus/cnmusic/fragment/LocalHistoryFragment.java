@@ -74,7 +74,7 @@ public class LocalHistoryFragment extends BaseFragment {
 				
 				if(mPlayingInHistoryMusicList && position == mPlayingPosition 
 						&& mLocalFragment.isMusicEquals(mLocalMusicList.get(position))) {
-					if(mMusicPlaying) {
+					if(mLocalMusicPlaying) {
 						return;
 					}else {
 						mLocalFragment.actionPauseOrPlay();
@@ -101,7 +101,7 @@ public class LocalHistoryFragment extends BaseFragment {
 					mLocalFragment.deleteHistoryMusic(localMusic);  //删除历史记录一般来说不应该删除对应文件，看实际需求而定
 				}
 				
-				if(mPlayingInHistoryMusicList && mLocalFragment.isMusicEquals(localMusic)){  //不管在哪个列表, 正在播放歌曲做不存在处理
+				if(mPlayingInHistoryMusicList && mLocalFragment.isMusicEquals(localMusic)){
 					mLocalFragment.handleFileDelete();
 				}
 				
@@ -113,7 +113,8 @@ public class LocalHistoryFragment extends BaseFragment {
 							Thread.sleep(1000);
 							if(mPlayingInHistoryMusicList) {
 								mLocalFragment.UpdateMusicInfo(position);
-							}else{
+							}
+							else{
 								mLocalMusicList = mLocalFragment.getHistoryMusicList();
 						        getLocalMusicMapList();
 								mLocalMusicListAdapter.notifyDataSetChanged();

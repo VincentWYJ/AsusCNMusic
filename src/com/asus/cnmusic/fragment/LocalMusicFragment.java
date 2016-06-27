@@ -77,7 +77,7 @@ public class LocalMusicFragment extends BaseFragment {
 				
 				if(mPlayingInMusicList && position == mPlayingPosition 
 						&& mLocalFragment.isMusicEquals(mLocalMusicList.get(position))) {
-					if(mMusicPlaying) {
+					if(mLocalMusicPlaying) {
 						return;
 					}else {
 						mLocalFragment.actionPauseOrPlay();
@@ -123,8 +123,9 @@ public class LocalMusicFragment extends BaseFragment {
 							Thread.sleep(1000);
 							if(mPlayingInMusicList) {
 								mLocalFragment.UpdateMusicInfo(position);
-							}else{
-								mLocalMusicList = GetLocalMusic.getLocalMusic(mContext, null, null, LocalMusicUtils.mMusicSortOrder);
+							}
+							else{
+								mLocalMusicList = mLocalFragment.getHistoryMusicList();
 						        getLocalMusicMapList();
 								mLocalMusicListAdapter.notifyDataSetChanged();
 							}

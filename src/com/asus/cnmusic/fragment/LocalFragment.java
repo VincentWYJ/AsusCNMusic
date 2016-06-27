@@ -58,7 +58,6 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 	private int mViewPagerPreIndex;
 	
 	private List<Button> mTitlesBtnList;
-	private int mCountPages;
 	
 	private int mCursorOffset;
 	
@@ -190,7 +189,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
         DisplayMetrics mDisplayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
         int screenWidth = mDisplayMetrics.widthPixels;
-        mCursorOffset = screenWidth / mFragmentList.size();
+        mCursorOffset = screenWidth / mCountPages;
 
         mMusicPlaySeekBar.setProgress(0);
         mMusicPlayTime.setText("0:00");
@@ -271,7 +270,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 				while (true){
 	            	try{
 						Thread.sleep(500);
-						if(mMusicPlaying){
+						if(mLocalMusicPlaying){
 							mMusicPlaySeekBar.setProgress(mMediaPlayer.getCurrentPosition());
 						}
 					} catch (InterruptedException e){
@@ -284,8 +283,8 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 	
     public void actionPauseOrPlay(){
     	LocalMusic localMusic = mLocalPlayingList.get(mPlayingPosition);
-    	if(mMusicPlaying){
-			mMusicPlaying = false;
+    	if(mLocalMusicPlaying){
+			mLocalMusicPlaying = false;
 			mMediaPlayer.pause();
 			mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
 			mSongPath = localMusic.getPath();
@@ -308,7 +307,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 					//only used to test--stop ximalaya music playing if it was *******************************
 			    	pauseOnlinePlaying();
 			    	
-					mMusicPlaying = true;
+					mLocalMusicPlaying = true;
 					mMediaPlayer.start();
 					mMusicPlayPause.setBackgroundResource(R.drawable.music_start_drawable);
 					updateNotification(localMusic.getTitle(), localMusic.getArtist(), false, true);
@@ -323,7 +322,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     	
     	final LocalMusic localMusic = mLocalPlayingList.get(position);
     	
-    	mMusicPlaying = false;
+    	mLocalMusicPlaying = false;
 		
 		mSongPath = localMusic.getPath();
 		
@@ -347,7 +346,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					mMediaPlayer.start();
-					mMusicPlaying = true;
+					mLocalMusicPlaying = true;
 					mPlayingPosition = position;
 					setMusicViewInfos();
 					updateNotification(localMusic.getTitle(), localMusic.getArtist(), false, true);
@@ -376,7 +375,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     	mContext.sendBroadcast(scanIntent);
 
 		if(mMediaPlayer != null && mMediaPlayer.isPlaying() && mPlayingPosition != position){
-			mMusicPlaying = true;
+			mLocalMusicPlaying = true;
 			if(mPlayingPosition > position){
 				mPlayingPosition -= 1;
 			}
@@ -416,7 +415,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     }
     
     public void handleFileDelete() {
-    	mMusicPlaying = false;
+    	mLocalMusicPlaying = false;
     	
     	if(mMediaPlayer != null) {
 	    	resetPlayingInfo();
@@ -616,7 +615,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 	public void onDestroyView(){
     	Log.i(TAG, "LocalFragment onDestroyView");
     	
-    	mMusicPlaying = false;
+    	mLocalMusicPlaying = false;
     	
     	if(mLocalPlayingList != null){
 			mLocalPlayingList.clear();

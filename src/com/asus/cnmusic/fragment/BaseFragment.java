@@ -34,6 +34,8 @@ public class BaseFragment extends Fragment{
 	public LocalFragment mLocalFragment;
 	public OnlineFragment mOnlineFragment;
 	
+	public int mCountPages;
+	
 	public XmPlayerManager mXmPlayerManager;
 	public CommonRequest mCommonRequest;
 
@@ -41,13 +43,13 @@ public class BaseFragment extends Fragment{
 	public List<Map<String, Object>> mLocalMusicMapList;
 	public SimpleAdapter mLocalMusicListAdapter;
 	
-	public static boolean mPlayingInLocal = false;
+	public static boolean mPlayingInLocal = false;  //之前是否在本地音乐进行过播放, 用于和在线音乐进行控制切换
 	
 	public static List<LocalMusic> mLocalPlayingList;
 	
 	public static int mPlayingPosition = 0;
 	
-	public static boolean mMusicPlaying = false;
+	public static boolean mLocalMusicPlaying = false;  //本地音乐是否正在播放
 	
 	public static boolean mInMusicList = false;
 	public static boolean mInAlbumMusicList = false;

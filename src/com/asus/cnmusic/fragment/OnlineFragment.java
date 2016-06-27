@@ -57,14 +57,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 	
 	private String mAppSecret = "4d8e605fa7ed546c4bcb33dee1381179";
 	
-	private String[] mTitles = new String[] {
-			"总榜", "资讯", "音乐", "有声书", "娱乐", "外语"
-			, "儿童","健康养生", "商业财经", "历史人文", "情感生活", "相声评书"
-			, "教育培训","百家讲坛", "广播剧", "戏曲", "电台", "IT科技"
-			, "校园","汽车", "旅游", "电影", "动漫游戏", "时尚生活"
-	};
-	
-	private int mTitlesLength;
+	private String[] mOnlineTitles;
 
 	private TextView mTextView;
 	private ImageView mSoundCover;
@@ -101,7 +94,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		case R.id.sound_cover:
 			Log.i(TAG, "refresh data");
 			
-			for(int i=0; i<mTitlesLength; ++i) {
+			for(int i=0; i<mCountPages; ++i) {
 				mFragmentList.get(i).refresh();
 			}
 			break;
@@ -162,7 +155,9 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		
 		mRemoteView = LocalMusicUtils.getRemoteViews();
 		
-		mTitlesLength = mTitles.length;
+		mOnlineTitles = getResources().getStringArray(R.array.online_titles_array);
+		
+		mCountPages = mOnlineTitles.length;
 		
 		mUpdateProgress = true;
 		
@@ -179,7 +174,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		mXmPlayerManager.getPlayerStatus();
 		
 		mFragmentList = new ArrayList<BaseFragment>();
-		for(int i=0; i<mTitlesLength; ++i) {
+		for(int i=0; i<mCountPages; ++i) {
 			int classIDValue = 0;
 			if(i<11) {
 				classIDValue = i;
@@ -202,7 +197,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		
 		mViewPagerAdapter = new SlidingPagerAdapter(getChildFragmentManager());
 		
-		mViewPager.setOffscreenPageLimit(mTitlesLength); //参数默认为1,即当不指定或者指定值小于1时系统会当做1处理,一般同时缓存的有三页; 如置为2则一般同时缓存的页面数为5
+		mViewPager.setOffscreenPageLimit(mCountPages); //参数默认为1,即当不指定或者指定值小于1时系统会当做1处理,一般同时缓存的有三页; 如置为2则一般同时缓存的页面数为5
 		mViewPager.setAdapter(mViewPagerAdapter);
 
 		mTabLayout.setupWithViewPager(mViewPager);
@@ -216,7 +211,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		mClassDialog.setCanceledOnTouchOutside(true);
         mGridView = (GridView) mClassDialog.findViewById(R.id.class_gridview);
         mCancelBtn  =(Button) mClassDialog.findViewById(R.id.class_cancel);
-        mSimpleAdapter = new SimpleAdapter(mContext, getData(), R.layout.online_class_item, 
+        mSimpleAdapter = new SimpleAdapter(mContext, getTitlesList(), R.layout.online_class_item, 
     		new String[]{"title"}, new int[]{R.id.class_item_textview}) {
         	
         	@SuppressWarnings("deprecation")
@@ -230,7 +225,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
         			view = convertView;
         		}
         	    TextView mTextView = (TextView) view.findViewById(R.id.class_item_textview);
-        	    mTextView.setText(mTitles[position]);
+        	    mTextView.setText(mOnlineTitles[position]);
         	    if(position == mViewPager.getCurrentItem()) {
         	    	mTextView.setBackgroundResource(R.color.online_class_item_pressed_bg);
         	    	mTextView.setTextColor(getResources().getColor(R.color.text_pressed));
@@ -314,13 +309,13 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		@Override
 		public CharSequence getPageTitle(int position)
 		{
-			return mTitles[position];
+			return mOnlineTitles[position];
 		}
 
 		@Override
 		public int getCount()
 		{
-			return mTitles.length;
+			return mCountPages;
 		}
 	}
 	
@@ -560,7 +555,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 			
 			mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
 			
-			if(!mMusicPlaying){
+			if(!mLocalMusicPlaying){
 				updateNotification(null, null, true, true);
 			}
 		}
@@ -601,12 +596,12 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 
 	};
 	
-	 private List<Map<String, Object>> getData() {
+	 private List<Map<String, Object>> getTitlesList() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         
-        for(int i=0; i<mTitles.length; ++i) {
+        for(int i=0; i<mCountPages; ++i) {
 	        Map<String, Object> map = new HashMap<String, Object>();
-	        map.put("title", mTitles[i]);
+	        map.put("title", mOnlineTitles[i]);
 	        list.add(map);
         }
         

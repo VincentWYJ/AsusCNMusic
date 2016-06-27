@@ -31,10 +31,32 @@
     <string name="local_album_title">专辑</string>
     <string name="local_artist_title">歌手</string>
     <string name="local_history_title">历史</string>
-    
+
     <string-array name="online_titles_array">
-        <item>在线电台</item>
-        <item>本地音乐</item>
+        <item>总榜</item>
+        <item>资讯</item>
+        <item>音乐</item>
+        <item>有声书</item>
+        <item>娱乐</item>
+        <item>外语</item>
+        <item>儿童</item>
+        <item>健康养生</item>
+        <item>商业财经</item>
+        <item>历史人文</item>
+        <item>情感生活</item>
+        <item>相声评书</item>
+        <item>教育培训</item>
+        <item>百家讲坛</item>
+        <item>广播剧</item>
+        <item>戏曲</item>
+        <item>电台</item>
+        <item>IT科技</item>
+        <item>校园</item>
+        <item>汽车</item>
+        <item>旅游</item>
+        <item>电影</item>
+        <item>动漫游戏</item>
+        <item>时尚生活</item>
     </string-array>
     
     <string-array name="navigation_titles_array">
