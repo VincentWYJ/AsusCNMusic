@@ -185,8 +185,8 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
             ImageView imageView = getView(viewId);
             Glide.with(mContext)
                     .load(url)
-                    .placeholder(R.drawable.ic_launcher)
-                    .error(R.drawable.ic_launcher)
+                    .placeholder(R.drawable.ic_error_image)
+                    .error(R.drawable.ic_error_image)
                     .centerCrop()
                     .into(imageView);
 

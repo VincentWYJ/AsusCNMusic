@@ -13,9 +13,9 @@
     	android:layout_marginStart="1dp"
     	android:layout_marginEnd="1dp"
 		android:padding="10dp"
-		android:textColor="@drawable/text_pressed_color"
+		android:textColor="@drawable/text_color"
 		android:textSize="15sp"
-		android:background="@drawable/online_class_item_pressed_bg_color"
+		android:background="@drawable/online_class_item_bg_color"
 		android:gravity="center"/>
 
 </LinearLayout>

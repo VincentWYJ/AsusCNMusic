@@ -52,7 +52,7 @@
 		android:padding="10dp"
         android:textStyle="bold"
         android:textColor="@color/text_pressed"
-        android:background="@drawable/button_pressed_bg_color"
+        android:background="@drawable/button_bg_color"
 	    android:text="@string/cancel" />
 
 </LinearLayout>

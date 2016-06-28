@@ -123,44 +123,52 @@ public class OnlineClassFragment extends BaseFragment {
 
 		@Override
 		public void onSoundPrepared() {
+			
 		}
 
 		@Override
 		public void onSoundPlayComplete() {
+			
 		}
 
 		@Override
 		public void onPlayStop() {
+			
 		}
 
 		@Override
 		public void onPlayStart() {
+			
 		}
 
 		@Override
 		public void onPlayProgress(int currPos, int duration) {
+			
 		}
 
 		@Override
 		public void onPlayPause() {
+			
 		}
 
 		@Override
 		public boolean onError(XmPlayerException exception) {
 			return false;
-
 		}
 
 		@Override
 		public void onBufferingStop() {
+			
 		}
 
 		@Override
 		public void onBufferingStart() {
+			
 		}
 
 		@Override
 		public void onBufferProgress(int percent) {
+			
 		}
 
 	};
@@ -268,6 +276,7 @@ public class OnlineClassFragment extends BaseFragment {
 			}else {
 				holder.content.setBackgroundResource(R.color.list_item_normal_bg);
 			}
+			
 			return convertView;
 		}
 	}

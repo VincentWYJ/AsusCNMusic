@@ -385,7 +385,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener {
 					updateRemoteViewIcon(coverLarge);  //更新notify栏图标
 				}else {
 					Log.i(TAG, "download img null");
-					Glide.with(mContext).load(R.drawable.ic_launcher).into(mSoundCover);
+					Glide.with(mContext).load(R.drawable.ic_error_image).into(mSoundCover);
 				}
 				updateNotification(playingName, playingArtist, true, true);  //设置notify栏位信息
 			}
@@ -401,9 +401,9 @@ public class OnlineFragment extends BaseFragment implements OnClickListener {
 				mRemoteView.setTextViewText(R.id.txt_notifyNickName, msg);
 			}
 			if(isPlaying) {
-				mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_pause);
+				mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.music_pause_drawable);
 			}else {
-				mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_play);
+				mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.music_start_drawable);
 			}
 			LocalMusicUtils.sendNotification();
 		}

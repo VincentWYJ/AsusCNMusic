@@ -2,19 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" 
-    android:padding="10dp">
+    android:padding="10dp" >
 
     <ImageView
         android:id="@+id/imageview"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/ic_launcher"
+        android:background="@drawable/ic_error_image"
         android:contentDescription="@null" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
         android:layout_toEndOf="@id/imageview" >
 
         <TextView
@@ -39,6 +40,7 @@
             android:text="@string/music_info"
             android:textColor="@color/text_pressed"
             android:textSize="@dimen/music_info_leftbottom" />
+        
     </RelativeLayout>
 
 </RelativeLayout>

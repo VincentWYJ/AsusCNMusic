@@ -90,7 +90,8 @@ public class LocalMusicUtils{
 		mRemoteView.setOnClickPendingIntent(R.id.img_notifyNext, nextPI);
 		mRemoteView.setOnClickPendingIntent(R.id.img_notifyPre, prePI);
 		
-		builder.setContent(mRemoteView).setSmallIcon(R.drawable.ic_launcher)
+		builder.setContent(mRemoteView)
+				.setSmallIcon(R.drawable.ic_status)
 				.setContentTitle("名称").setContentText("信息")
 				.setContentIntent(mainPI);
 		

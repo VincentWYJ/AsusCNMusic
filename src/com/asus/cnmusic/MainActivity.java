@@ -223,10 +223,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     public List<NavigationListBean> initDrawerList() {
         List<NavigationListBean> drawerList = new ArrayList<NavigationListBean>();
         
-        NavigationListBean drawerListBean = new NavigationListBean(mNavigationTitles[0], R.drawable.online_ic_pressed_drawable);
+        NavigationListBean drawerListBean = new NavigationListBean(mNavigationTitles[0], R.drawable.online_ic_drawable);
         drawerList.add(drawerListBean);
         
-        NavigationListBean drawerListBean1 = new NavigationListBean(mNavigationTitles[1], R.drawable.local_ic_pressed_drawable);
+        NavigationListBean drawerListBean1 = new NavigationListBean(mNavigationTitles[1], R.drawable.local_ic_drawable);
         drawerList.add(drawerListBean1);
         
         return drawerList;

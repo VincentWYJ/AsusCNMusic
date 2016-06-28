@@ -493,11 +493,11 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 			mRemoteView.setTextViewText(R.id.txt_notifyNickName, artist);
 		}
 		if(isPlaying) {
-			mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_pause);
+			mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.music_pause_drawable);
 		}else {
-			mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_play);
+			mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.music_start_drawable);
 		}
-		mRemoteView.setImageViewResource(R.id.img_notifyIcon, R.drawable.ic_launcher);
+		mRemoteView.setImageViewResource(R.id.img_notifyIcon, R.drawable.ic_error_image);
 		LocalMusicUtils.sendNotification();
 	}
 	

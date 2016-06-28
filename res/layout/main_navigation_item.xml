@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/ic_error_image"
             android:contentDescription="@null" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="72dp"
-            android:textColor="@drawable/text_pressed_color"
+            android:textColor="@drawable/text_color"
             android:textStyle="bold"
             android:textSize="@dimen/music_title" />
 
