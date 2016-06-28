@@ -52,7 +52,7 @@ import android.widget.TextView;
 import net.tsz.afinal.FinalHttp;
 
 @SuppressLint({ "ViewHolder", "SdCardPath" })
-public class OnlineFragment extends BaseFragment implements OnClickListener{
+public class OnlineFragment extends BaseFragment implements OnClickListener {
 	private static OnlineFragment mInstance;
 	
 	private String mAppSecret = "4d8e605fa7ed546c4bcb33dee1381179";
@@ -79,8 +79,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 	private Bitmap playingBitmap;
 	private String coverLarge;
 	
-	public static OnlineFragment getInstance()
-    {
+	public static OnlineFragment getInstance() {
         if(mInstance == null) {
         	mInstance = new OnlineFragment();
         }
@@ -102,12 +101,9 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 			mXmPlayerManager.playPre();
 			break;
 		case R.id.play_or_pause:
-			if(mXmPlayerManager.isPlaying())
-			{
+			if(mXmPlayerManager.isPlaying()) {
 				mXmPlayerManager.pause();
-			}
-			else
-			{
+			}else {
 				mXmPlayerManager.play();
 			}
 			break;
@@ -125,8 +121,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 	}
 	
 	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
-	{
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		//Log.i(TAG, "XiMaLaYaFragment onCreateView");
 		
 		mRootView = inflater.inflate(R.layout.online_fragment, container, false);
@@ -145,8 +140,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 	}
 	
 	@Override
-	public void onActivityCreated(Bundle arg0)
-	{
+	public void onActivityCreated(Bundle arg0) {
 		super.onActivityCreated(arg0);
 		
 		Log.i(TAG, "XiMaLaYaFragment onActivityCreated");
@@ -221,7 +215,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
         		if(convertView == null) {
             		LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             		view = mInflater.inflate(R.layout.online_class_item, parent, false);
-        		}else{
+        		}else {
         			view = convertView;
         		}
         	    TextView mTextView = (TextView) view.findViewById(R.id.class_item_textview);
@@ -229,7 +223,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
         	    if(position == mViewPager.getCurrentItem()) {
         	    	mTextView.setBackgroundResource(R.color.online_class_item_pressed_bg);
         	    	mTextView.setTextColor(getResources().getColor(R.color.text_pressed));
-        	    }else{
+        	    }else {
         	    	mTextView.setBackgroundResource(R.color.music_title_bg);
         	    }
         	    return view;
@@ -255,14 +249,14 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 					          // TODO Auto-generated method stub
 					          try {
 					               Thread.sleep(20);  //这里延迟时间设为0.01秒, 数据量大的刷新可能不够
-					          } catch (InterruptedException e) {
+					          }catch(InterruptedException e) {
 					               // TODO Auto-generated catch block
 					               e.printStackTrace();
 					          }
 					          mClassDialog.cancel();
 					     }				
 					}).start();
-				}else{
+				}else {
 					mClassDialog.cancel();
 				}
 			}
@@ -270,72 +264,60 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 	}
 	
 	public void setOnSeekBarChangeListener() {
-		mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
-		{
+		mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar)
-			{
+			public void onStopTrackingTouch(SeekBar seekBar) {
 				mXmPlayerManager.seekToByPercent(seekBar.getProgress() / (float) seekBar.getMax());
 				mUpdateProgress = true;
 			}
 
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar)
-			{
+			public void onStartTrackingTouch(SeekBar seekBar) {
 				mUpdateProgress = false;
 			}
 
 			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-			{
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+				
 			}
 		});
 	}
 	
-	class SlidingPagerAdapter extends FragmentPagerAdapter
-	{
-		public SlidingPagerAdapter(FragmentManager fragmentManager)
-		{
+	class SlidingPagerAdapter extends FragmentPagerAdapter{
+		public SlidingPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
 		}
 
 		@Override
-		public Fragment getItem(int position)
-		{
+		public Fragment getItem(int position) {
 			return mFragmentList.get(position);
 		}
 
 		@Override
-		public CharSequence getPageTitle(int position)
-		{
+		public CharSequence getPageTitle(int position) {
 			return mOnlineTitles[position];
 		}
 
 		@Override
-		public int getCount()
-		{
+		public int getCount() {
 			return mCountPages;
 		}
 	}
 	
-	private IXmAdsStatusListener mAdsListener = new IXmAdsStatusListener()
-	{
+	private IXmAdsStatusListener mAdsListener = new IXmAdsStatusListener() {
 		
 		@Override
-		public void onStartPlayAds(Advertis ad, int position)
-		{
+		public void onStartPlayAds(Advertis ad, int position) {
 			//Log.i(TAG, "onStartPlayAds, Ad:" + ad.getName() + ", pos:" + position);
 			
-			if(ad != null)
-			{
+			if(ad != null) {
 				//Glide.with(mContext).load(ad.getImageUrl()).into(mSoundCover); 
 			}
 		}
 		
 		@Override
-		public void onStartGetAdsInfo()
-		{
+		public void onStartGetAdsInfo() {
 			//Log.i(TAG, "onStartGetAdsInfo");
 			
 			mMusicPlayPause.setEnabled(false);
@@ -343,65 +325,54 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		}
 		
 		@Override
-		public void onGetAdsInfo(AdvertisList ads)
-		{
+		public void onGetAdsInfo(AdvertisList ads) {
 			//Log.i(TAG, "onGetAdsInfo " + (ads != null));
 		}
 		
 		@Override
-		public void onError(int what, int extra)
-		{
+		public void onError(int what, int extra) {
 			Log.i(TAG, "onError what:" + what + ", extra:" + extra);
 		}
 		
 		@Override
-		public void onCompletePlayAds()
-		{
+		public void onCompletePlayAds() {
 			//Log.i(TAG, "onCompletePlayAds");
 			
 			mMusicPlayPause.setEnabled(true);
 			mSeekBar.setEnabled(true);
 			PlayableModel model = mXmPlayerManager.getCurrSound();
-			if(model != null && model instanceof Track)
-			{
+			if(model != null && model instanceof Track) {
 				//Glide.with(mContext).load(((Track) model).getCoverUrlLarge()).into(mSoundCover);
 			}
 		}
 		
 		@Override
-		public void onAdsStopBuffering()
-		{
+		public void onAdsStopBuffering() {
 			//Log.i(TAG, "onAdsStopBuffering");
 		}
 		
 		@Override
-		public void onAdsStartBuffering()
-		{
+		public void onAdsStartBuffering() {
 			//Log.i(TAG, "onAdsStartBuffering");
 		}
 	};
 
-	private IXmPlayerStatusListener mPlayerStatusListener = new IXmPlayerStatusListener()
-	{
+	private IXmPlayerStatusListener mPlayerStatusListener = new IXmPlayerStatusListener() {
 
 		@Override
-		public void onSoundPrepared()
-		{
+		public void onSoundPrepared() {
 			//Log.i(TAG, "onSoundPrepared");
 			
 			mSeekBar.setEnabled(true);
 		}
 
 		@Override
-		public void onSoundSwitch(PlayableModel laModel, PlayableModel curModel)
-		{
+		public void onSoundSwitch(PlayableModel laModel, PlayableModel curModel) {
 			//Log.i(TAG, "onSoundSwitch");
 			
 			PlayableModel model = mXmPlayerManager.getCurrSound();
-			if(model != null)
-			{
-				if(model instanceof Track)
-				{
+			if(model != null) {
+				if(model instanceof Track) {
 					Track info = (Track) model;
 					playingName = info.getTrackTitle();
 					playingArtist = info.getAnnouncer() == null ? "" : info.getAnnouncer().getNickname();
@@ -409,14 +380,12 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 					coverLarge = info.getCoverUrlLarge();
 				}
 				mTextView.setText(playingName);  //设置播放栏位信息
-				if(!TextUtils.isEmpty(coverLarge))
-				{
+				if(!TextUtils.isEmpty(coverLarge)) {
 					Glide.with(mContext).load(coverLarge).into(mSoundCover);  //设置播放栏图标，可设置占位图/错误图
 					updateRemoteViewIcon(coverLarge);  //更新notify栏图标
-				}
-				else
-				{
+				}else {
 					Log.i(TAG, "download img null");
+					Glide.with(mContext).load(R.drawable.ic_launcher).into(mSoundCover);
 				}
 				updateNotification(playingName, playingArtist, true, true);  //设置notify栏位信息
 			}
@@ -424,29 +393,22 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		}
 
 		private void updateNotification(String title, String msg, boolean isPlaying,
-				boolean hasNext)
-		{	
-			if(!TextUtils.isEmpty(title))
-			{
+				boolean hasNext) {	
+			if(!TextUtils.isEmpty(title)) {
 				mRemoteView.setTextViewText(R.id.txt_notifyMusicName, title);
 			}
-			if(!TextUtils.isEmpty(msg))
-			{
+			if(!TextUtils.isEmpty(msg)) {
 				mRemoteView.setTextViewText(R.id.txt_notifyNickName, msg);
 			}
-			if(isPlaying)
-			{
+			if(isPlaying) {
 				mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_pause);
-			}
-			else
-			{
+			}else {
 				mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_play);
 			}
 			LocalMusicUtils.sendNotification();
 		}
 
-		private void updateRemoteViewIcon(final String coverUrl)
-		{
+		private void updateRemoteViewIcon(final String coverUrl) {
 			new Thread(new Runnable() {
 				
 				@Override
@@ -460,10 +422,10 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 						    .into(500, 500)  
 						    .get();
 						setNotificationIcon();
-					} catch (InterruptedException e) {
+					}catch(InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (ExecutionException e) {
+					}catch(ExecutionException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -476,29 +438,21 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 			LocalMusicUtils.sendNotification();
 		}
 		
-		private void updateButtonStatus()
-		{
-			if(mXmPlayerManager.hasPreSound())
-			{
+		private void updateButtonStatus() {
+			if(mXmPlayerManager.hasPreSound()) {
 				mMusicPlayPre.setEnabled(true);
-			}
-			else
-			{
+			}else {
 				mMusicPlayPre.setEnabled(false);
 			}
-			if(mXmPlayerManager.hasNextSound())
-			{
+			if(mXmPlayerManager.hasNextSound()) {
 				mMusicPlayNext.setEnabled(true);
-			}
-			else
-			{
+			}else {
 				mMusicPlayNext.setEnabled(false);
 			}
 		}
 
 		@Override
-		public void onPlayStop()
-		{
+		public void onPlayStop() {
 			//Log.i(TAG, "onPlayStop");
 			
 			mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
@@ -507,8 +461,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		}
 
 		@Override
-		public void onPlayStart()
-		{
+		public void onPlayStart() {
 			//Log.i(TAG, "onPlayStart");
 			
 			pauseLocalPlaying();
@@ -522,55 +475,44 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		}
 
 		@Override
-		public void onPlayProgress(int currPos, int duration)
-		{
+		public void onPlayProgress(int currPos, int duration) {
 			String title = "";
 			PlayableModel info = mXmPlayerManager.getCurrSound();
-			if(info != null)
-			{
-				if(info instanceof Track)
-				{
+			if(info != null) {
+				if(info instanceof Track) {
 					title = ((Track) info).getTrackTitle();
-				}
-				else if(info instanceof Schedule)
-				{
+				}else if(info instanceof Schedule) {
 					title = ((Schedule) info).getRelatedProgram().getProgramName();
-				}
-				else if(info instanceof Radio)
-				{
+				}else if(info instanceof Radio) {
 					title = ((Radio) info).getRadioName();
 				}
 			}
 			mTextView.setText(title + "[" + ToolUtil.formatTime(currPos) + "/" + ToolUtil.formatTime(duration) + "]");
-			if(mUpdateProgress && duration != 0)
-			{
+			if(mUpdateProgress && duration != 0) {
 				mSeekBar.setProgress((int) (100 * currPos / (float) duration));
 			}
 		}
 
 		@Override
-		public void onPlayPause()
-		{
+		public void onPlayPause() {
 			//Log.i(TAG, "onPlayPause");
 			
 			mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
 			
-			if(!mLocalMusicPlaying){
+			if(!mLocalMusicPlaying) {
 				updateNotification(null, null, true, true);
 			}
 		}
 
 		@Override
-		public void onSoundPlayComplete()
-		{
+		public void onSoundPlayComplete() {
 			//Log.i(TAG, "onSoundPlayComplete");
 			
 			mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
 		}
 
 		@Override
-		public boolean onError(XmPlayerException exception)
-		{
+		public boolean onError(XmPlayerException exception) {
 			Log.i(TAG, "onError " + exception.getMessage());
 			
 			mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
@@ -579,18 +521,15 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 		}
 
 		@Override
-		public void onBufferProgress(int position)
-		{
+		public void onBufferProgress(int position) {
 			mSeekBar.setSecondaryProgress(position);
 		}
 
-		public void onBufferingStart()
-		{
+		public void onBufferingStart() {
 			mSeekBar.setEnabled(false);
 		}
 
-		public void onBufferingStop()
-		{
+		public void onBufferingStop() {
 			mSeekBar.setEnabled(true);
 		}
 
@@ -637,8 +576,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener{
 	public void onDestroyView() {
 		Log.i(TAG, "XiMaLaYaFragment onDestroyView");
 		
-		if(mXmPlayerManager != null)
-		{
+		if(mXmPlayerManager != null) {
 			mXmPlayerManager.stop();
 			mXmPlayerManager.removePlayerStatusListener(mPlayerStatusListener);
 			mXmPlayerManager.removeAdsStatusListener(mAdsListener);

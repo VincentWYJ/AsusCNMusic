@@ -25,7 +25,7 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
     public List<T> mData;
     public int layoutId;
 
-    public SimpleBaseAdapter(Context context,int layoutId,List<T> data){
+    public SimpleBaseAdapter(Context context,int layoutId,List<T> data) {
         this.mContext= context;
         this.mInflater = LayoutInflater.from(context);
         this.layoutId = layoutId;
@@ -48,7 +48,7 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = ViewHolder.get(mContext, convertView, parent,
                 layoutId, position);
 
@@ -91,13 +91,13 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
     /**
      * 通用ViewHolder类
      */
-    public static class ViewHolder{
+    public static class ViewHolder {
         private  SparseArray<View> mViews;
         private int position;
         private  View mConvertView;
         private Context mContext;
 
-        public ViewHolder(Context context,ViewGroup parent,int layoutId,int position){
+        public ViewHolder(Context context,ViewGroup parent,int layoutId,int position) {
             this.mContext= context;
             this.position = position;
             this.mViews = new SparseArray<View>();
@@ -106,17 +106,17 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
         }
 
         public static ViewHolder get(Context context,View convertView,
-                                     ViewGroup parent,int layoutId,int position){
-            if(convertView == null){
+                                     ViewGroup parent,int layoutId,int position) {
+            if(convertView == null) {
                 return  new ViewHolder(context,parent,layoutId,position);
-            }else{
+            }else {
                 ViewHolder holder = (ViewHolder) convertView.getTag();
                 holder.position = position;
                 return  holder;
             }
         }
 
-        public View getConvertView(){
+        public View getConvertView() {
             return mConvertView;
         }
 
@@ -126,13 +126,14 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
          * @param <T>
          * @return
          */
-        public  <T extends View> T getView(int viewId){
+        public  <T extends View> T getView(int viewId) {
             View view = mViews.get(viewId);
 
-            if(view == null){
+            if(view == null) {
                 view = mConvertView.findViewById(viewId);
                 mViews.put(viewId,view);
             }
+            
             return (T) view;
         }
 
@@ -142,7 +143,7 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
          * @param text 值
          * @return
          */
-        public ViewHolder setText(int viewId,String text){
+        public ViewHolder setText(int viewId,String text) {
             TextView tv = getView(viewId);
             tv.setText(text);
             return this;
@@ -154,9 +155,10 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
          * @param resourceId 资源Id
          * @return
          */
-        public ViewHolder setImageResource(int viewId,int resourceId){
+        public ViewHolder setImageResource(int viewId,int resourceId) {
             ImageView imageView = getView(viewId);
             imageView.setImageResource(resourceId);
+            
             return  this;
         }
 
@@ -166,9 +168,10 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
          * @param bitmap 图像位图
          * @return
          */
-        public ViewHolder setImageBitmap(int viewId,Bitmap bitmap){
+        public ViewHolder setImageBitmap(int viewId,Bitmap bitmap) {
             ImageView imageView = getView(viewId);
             imageView.setImageBitmap(bitmap);
+            
             return  this;
         }
 
@@ -178,7 +181,7 @@ public abstract class SimpleBaseAdapter<T> extends BaseAdapter {
          * @param url 图片链接地址
          * @return
          */
-        public ViewHolder setImageURL(int viewId,String url){
+        public ViewHolder setImageURL(int viewId,String url) {
             ImageView imageView = getView(viewId);
             Glide.with(mContext)
                     .load(url)

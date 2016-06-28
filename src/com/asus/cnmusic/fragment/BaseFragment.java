@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.SimpleAdapter;
 
-public class BaseFragment extends Fragment{
+public class BaseFragment extends Fragment {
 	public final String TAG = "AsusCNMusic";
 	
 	public Context mContext;
@@ -64,7 +64,7 @@ public class BaseFragment extends Fragment{
 	public static String mPlayingMusicTitle = "";
 	public static String mPlayingMusicPath = "";
 	
-	public void refresh(){
+	public void refresh() {
 		
 	}
 	

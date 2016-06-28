@@ -12,6 +12,7 @@ import com.asus.cnmusic.view.ViewHolder;
 import com.asus.cnmusic.R;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -106,7 +107,7 @@ public class LocalMusicFragment extends BaseFragment {
 					
 					mLocalFragment.deleteHistoryMusic(localMusic);
 					
-					if(mLocalFragment.isMusicEquals(localMusic)){  //不管在哪个列表, 正在播放歌曲做不存在处理
+					if(mLocalFragment.isMusicEquals(localMusic)) {  //不管在哪个列表, 正在播放歌曲做不存在处理
 						mLocalFragment.handleFileDelete();
 					}
 					
@@ -119,17 +120,16 @@ public class LocalMusicFragment extends BaseFragment {
 					
 					@Override
 					public void run() {
-		            	try{
+		            	try {
 							Thread.sleep(1000);
 							if(mPlayingInMusicList) {
 								mLocalFragment.UpdateMusicInfo(position);
-							}
-							else{
+							}else {
 								mLocalMusicList = mLocalFragment.getHistoryMusicList();
 						        getLocalMusicMapList();
 								mLocalMusicListAdapter.notifyDataSetChanged();
 							}
-						} catch (InterruptedException e) {
+						}catch(InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
@@ -164,13 +164,11 @@ public class LocalMusicFragment extends BaseFragment {
     public void getLocalMusicListAdapter() {
     	mLocalMusicListAdapter = new SimpleAdapter(mContext, mLocalMusicMapList, R.layout.local_item,
                 new String[]{"title", "artist", "duration"},
-                new int[]{R.id.left_top, R.id.left_bottom, R.id.right})
-    	{
+                new int[]{R.id.left_top, R.id.left_bottom, R.id.right}) {
         	@Override
         	public View getView(int position, View convertView, ViewGroup parent) {
         		ViewHolder holder;
-    			if(convertView == null)
-    			{
+    			if(convertView == null) {
     				convertView = LayoutInflater.from(mContext).inflate(
     						R.layout.local_item, parent, false);
     				holder = new ViewHolder();
@@ -179,9 +177,7 @@ public class LocalMusicFragment extends BaseFragment {
     				holder.intro = (TextView) convertView.findViewById(R.id.left_bottom);
     				holder.status = (TextView) convertView.findViewById(R.id.right);
     				convertView.setTag(holder);
-    			}
-    			else
-    			{
+    			}else {
     				holder = (ViewHolder) convertView.getTag();
     			}
     			Map<String, Object> localMusicMap = mLocalMusicMapList.get(position);
@@ -192,9 +188,10 @@ public class LocalMusicFragment extends BaseFragment {
     			if(mPlayingInMusicList && mLocalFragment.mMediaPlayer!=null 
     					&& mLocalFragment.isMusicEquals(mLocalMusicList.get(position))) {
         	    	holder.content.setBackgroundResource(R.color.list_item_pressed_bg);
-        	    }else{
+        	    }else {
         	    	holder.content.setBackgroundResource(R.color.list_item_normal_bg);
         	    }
+    			
     			return convertView;
         	}
     	};

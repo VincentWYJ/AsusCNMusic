@@ -40,10 +40,10 @@ public class NavigationListAdapter extends SimpleBaseAdapter<NavigationListBean>
 
         getItemView(holder,mData.get(position));
 
-        if(selectedPosition == position || (selectedPosition == -1 && position == 0)){
+        if(selectedPosition == position || (selectedPosition == -1 && position == 0)) {
             holder.getView(R.id.navigation_title).setSelected(true);
             holder.getView(R.id.navigation_image).setSelected(true);
-        }else{
+        }else {
             holder.getView(R.id.navigation_title).setSelected(false);
             holder.getView(R.id.navigation_image).setSelected(false);
             holder.getView(R.id.navigation_list).setBackgroundColor(Color.TRANSPARENT);

@@ -70,7 +70,7 @@ public class LocalMusicUtils{
 		return mRemoteView;
 	}
 
-	public static Notification createNotification(){
+	public static Notification createNotification() {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
 
 		Intent mainI = new Intent(mContext, MainActivity.class);
@@ -110,7 +110,7 @@ public class LocalMusicUtils{
 	         file.delete(); 
 	         return; 
 	     } 
-	     if(file.isDirectory()){ 
+	     if(file.isDirectory()) { 
 	         File[] childFiles = file.listFiles(); 
 	         if (childFiles == null || childFiles.length == 0) { 
 	             file.delete(); 
@@ -123,7 +123,7 @@ public class LocalMusicUtils{
 	     } 
 	} 
 	
-	public static void initStatusBarColor(Activity activity){
+	public static void initStatusBarColor(Activity activity) {
         if(android.os.Build.VERSION.SDK_INT > 18) {
 			Window window = activity.getWindow();
 			window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,

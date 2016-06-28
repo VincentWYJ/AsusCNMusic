@@ -142,7 +142,7 @@ public class FavoriteMusicNoteDao extends AbstractDao<FavoriteMusicNote, Long> {
     public Long getKey(FavoriteMusicNote entity) {
         if(entity != null) {
             return entity.getId();
-        } else {
+        }else {
             return null;
         }
     }

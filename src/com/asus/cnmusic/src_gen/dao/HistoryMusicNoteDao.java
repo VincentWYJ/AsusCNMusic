@@ -151,7 +151,7 @@ public class HistoryMusicNoteDao extends AbstractDao<HistoryMusicNote, Long> {
     public Long getKey(HistoryMusicNote entity) {
         if(entity != null) {
             return entity.getId();
-        } else {
+        }else {
             return null;
         }
     }

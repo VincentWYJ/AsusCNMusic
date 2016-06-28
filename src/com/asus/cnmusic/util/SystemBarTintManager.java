@@ -55,7 +55,7 @@ public class SystemBarTintManager {
                 Method m = c.getDeclaredMethod("get", String.class);
                 m.setAccessible(true);
                 sNavBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
-            } catch (Throwable e) {
+            }catch(Throwable e) {
                 sNavBarOverride = null;
             }
         }
@@ -339,7 +339,7 @@ public class SystemBarTintManager {
         if(mConfig.isNavigationAtBottom()) {
             params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getNavigationBarHeight());
             params.gravity = Gravity.BOTTOM;
-        } else {
+        }else {
             params = new LayoutParams(mConfig.getNavigationBarWidth(), LayoutParams.MATCH_PARENT);
             params.gravity = Gravity.RIGHT;
         }
@@ -405,7 +405,7 @@ public class SystemBarTintManager {
                     String key;
                     if(mInPortrait) {
                         key = NAV_BAR_HEIGHT_RES_NAME;
-                    } else {
+                    }else {
                         key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
                     }
                     return getInternalDimensionSize(res, key);
@@ -435,11 +435,11 @@ public class SystemBarTintManager {
                 // check override flag (see static block)
                 if("1".equals(sNavBarOverride)) {
                     hasNav = false;
-                } else if("0".equals(sNavBarOverride)) {
+                }else if("0".equals(sNavBarOverride)) {
                     hasNav = true;
                 }
                 return hasNav;
-            } else { // fallback
+            }else { // fallback
                 return !ViewConfiguration.get(context).hasPermanentMenuKey();
             }
         }
@@ -458,7 +458,7 @@ public class SystemBarTintManager {
             DisplayMetrics metrics = new DisplayMetrics();
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 activity.getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-            } else {
+            }else {
                 // TODO this is not correct, but we don't really care pre-kitkat
                 activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
             }
@@ -543,7 +543,7 @@ public class SystemBarTintManager {
         public int getPixelInsetBottom() {
             if(mTranslucentNavBar && isNavigationAtBottom()) {
                 return mNavigationBarHeight;
-            } else {
+            }else {
                 return 0;
             }
         }
@@ -556,7 +556,7 @@ public class SystemBarTintManager {
         public int getPixelInsetRight() {
             if(mTranslucentNavBar && !isNavigationAtBottom()) {
                 return mNavigationBarWidth;
-            } else {
+            }else {
                 return 0;
             }
         }

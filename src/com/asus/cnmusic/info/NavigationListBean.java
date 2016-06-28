@@ -7,7 +7,7 @@ public class NavigationListBean {
     private String title;
     private int titleImageId;
 
-    public NavigationListBean(String title, int titleImageId){
+    public NavigationListBean(String title, int titleImageId) {
         this.title = title;
         this.titleImageId = titleImageId;
     }
@@ -20,10 +20,10 @@ public class NavigationListBean {
         return title;
     }
 
-    public void setTitleImageId(int titleImageId){
+    public void setTitleImageId(int titleImageId) {
         this.titleImageId = titleImageId;
     }
-    public int getTitleImageId(){
+    public int getTitleImageId() {
         return titleImageId;
     }
 }

@@ -1,8 +1,6 @@
 package com.asus.cnmusic.view;
 
 import com.asus.cnmusic.R;
-import com.asus.cnmusic.R.styleable;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -97,19 +95,19 @@ public class RoundImageView extends ImageView {
 			// 画外圆
 			drawCircleBorder(canvas, radius + mBorderThickness
 					+ mBorderThickness / 2, mBorderOutsideColor);
-		} else if(mBorderInsideColor != defaultColor
+		}else if(mBorderInsideColor != defaultColor
 				&& mBorderOutsideColor == defaultColor) {// 定义画一个边框
 			radius = (defaultWidth < defaultHeight ? defaultWidth
 					: defaultHeight) / 2 - mBorderThickness;
 			drawCircleBorder(canvas, radius + mBorderThickness / 2,
 					mBorderInsideColor);
-		} else if(mBorderInsideColor == defaultColor
+		}else if(mBorderInsideColor == defaultColor
 				&& mBorderOutsideColor != defaultColor) {// 定义画一个边框
 			radius = (defaultWidth < defaultHeight ? defaultWidth
 					: defaultHeight) / 2 - mBorderThickness;
 			drawCircleBorder(canvas, radius + mBorderThickness / 2,
 					mBorderOutsideColor);
-		} else {// 没有边框
+		}else {// 没有边框
 			radius = (defaultWidth < defaultHeight ? defaultWidth
 					: defaultHeight) / 2;
 		}
@@ -141,13 +139,13 @@ public class RoundImageView extends ImageView {
 			// 截取正方形图片
 			squareBitmap = Bitmap.createBitmap(bmp, x, y, squareWidth,
 					squareHeight);
-		} else if(bmpHeight < bmpWidth) {// 宽大于高
+		}else if(bmpHeight < bmpWidth) {// 宽大于高
 			squareWidth = squareHeight = bmpHeight;
 			x = (bmpWidth - bmpHeight) / 2;
 			y = 0;
 			squareBitmap = Bitmap.createBitmap(bmp, x, y, squareWidth,
 					squareHeight);
-		} else {
+		}else {
 			squareBitmap = bmp;
 		}
 
@@ -156,7 +154,7 @@ public class RoundImageView extends ImageView {
 			scaledSrcBmp = Bitmap.createScaledBitmap(squareBitmap, diameter,
 					diameter, true);
 
-		} else {
+		}else {
 			scaledSrcBmp = squareBitmap;
 		}
 		Bitmap output = Bitmap.createBitmap(scaledSrcBmp.getWidth(),

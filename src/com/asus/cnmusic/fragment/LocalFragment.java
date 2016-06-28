@@ -47,7 +47,7 @@ import android.widget.TextView;
 import de.greenrobot.dao.query.Query;
 
 @SuppressLint({ "ResourceAsColor", "InflateParams", "CutPasteId" })
-public class LocalFragment extends BaseFragment implements OnClickListener{
+public class LocalFragment extends BaseFragment implements OnClickListener {
 	public static LocalFragment mInstance;
 	
 	private Uri mUri;
@@ -68,8 +68,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 	private static TextView mMusicEndTime;
 	private static FragmentAdapter mFragmentAdapter;
 	
-	public static LocalFragment getInstance()
-    {
+	public static LocalFragment getInstance() {
         if(mInstance == null) {
         	mInstance = new LocalFragment();
         }
@@ -82,43 +81,43 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		int tempPageIndex = -1;
 		mViewPagerPreIndex = mViewPagerIndex;
-		switch(v.getId()){
+		switch(v.getId()) {
 		case R.id.music_play_pre:
-			if(!isPlayingListEmpty() && mMediaPlayer!=null){
+			if(!isPlayingListEmpty() && mMediaPlayer!=null) {
 				MusicPlay((mLocalPlayingList.size()+mPlayingPosition-1) % mLocalPlayingList.size());
 			}
 			break;
 		case R.id.music_play_next:
-			if(!isPlayingListEmpty() && mMediaPlayer!=null){
+			if(!isPlayingListEmpty() && mMediaPlayer!=null) {
 				MusicPlay((mPlayingPosition+1) % mLocalPlayingList.size());
 			}
 			break;
 		case R.id.music_play_pause:
-			if(!isPlayingListEmpty()){
+			if(!isPlayingListEmpty()) {
 				actionPauseOrPlay();
 			}
 			break;
 		case R.id.local_music_title:
 			tempPageIndex = mViewPagerIndex = 0;
-			if(mViewPagerIndex != mViewPagerPreIndex){
+			if(mViewPagerIndex != mViewPagerPreIndex) {
 				mViewPager.setCurrentItem(mViewPagerIndex);
 			}
 			break;
 		case R.id.local_album_title:
 			tempPageIndex = mViewPagerIndex = 1;
-			if(mViewPagerIndex != mViewPagerPreIndex){
+			if(mViewPagerIndex != mViewPagerPreIndex) {
 				mViewPager.setCurrentItem(mViewPagerIndex);
 			}
 			break;
 		case R.id.local_artist_title:
 			tempPageIndex = mViewPagerIndex = 2;
-			if(mViewPagerIndex != mViewPagerPreIndex){
+			if(mViewPagerIndex != mViewPagerPreIndex) {
 				mViewPager.setCurrentItem(mViewPagerIndex);
 			}
 			break;
 		case R.id.local_history_title:
 			tempPageIndex = mViewPagerIndex = 3;
-			if(mViewPagerIndex != mViewPagerPreIndex){
+			if(mViewPagerIndex != mViewPagerPreIndex) {
 				mViewPager.setCurrentItem(mViewPagerIndex);
 			}
 			break;
@@ -206,19 +205,19 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     }
     
     @SuppressWarnings("deprecation")
-	public void setViewPagerChangeListener(){
-    	mViewPager.setOnPageChangeListener(new OnPageChangeListener(){
+	public void setViewPagerChangeListener() {
+    	mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
     		
         	@Override
-        	public void onPageScrollStateChanged(int arg0){
+        	public void onPageScrollStateChanged(int arg0) {
         	}
 
         	@Override
-        	public void onPageScrolled(int arg0, float arg1, int arg2){
+        	public void onPageScrolled(int arg0, float arg1, int arg2) {
         	}
 
         	@Override
-        	public void onPageSelected(int arg0){
+        	public void onPageSelected(int arg0) {
         		//Log.i(TAG, " "+preIndexViewPager+" "+arg0);
         		Animation animation = new TranslateAnimation(mCursorOffset*mViewPagerPreIndex, mCursorOffset*arg0, 0, 0);
                 animation.setFillAfter(true);
@@ -238,22 +237,23 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
         });
     }
     
-    public void setSeekBarOnClickListener(){
-    	mMusicPlaySeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+    public void setSeekBarOnClickListener() {
+    	mMusicPlaySeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar){
-				if(mMediaPlayer != null){
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				if(mMediaPlayer != null) {
 					mMediaPlayer.seekTo(seekBar.getProgress());
 				}
 			}
 			
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar){
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				
 			}
 			
 			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				float duration = progress/60.0f/1000.0f;
 	        	int pre = (int)duration;
 	        	int suf = (int)((duration-pre)*60);
@@ -262,18 +262,18 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 		});
     }
     
-    public void setSeekBarMoveListener(){
-    	new Thread(new Runnable(){
+    public void setSeekBarMoveListener() {
+    	new Thread(new Runnable() {
 			
 			@Override
-			public void run(){
-				while (true){
-	            	try{
+			public void run() {
+				while (true) {
+	            	try {
 						Thread.sleep(500);
-						if(mLocalMusicPlaying){
+						if(mLocalMusicPlaying) {
 							mMusicPlaySeekBar.setProgress(mMediaPlayer.getCurrentPosition());
 						}
-					} catch (InterruptedException e){
+					}catch(InterruptedException e) {
 						e.printStackTrace();
 					}
 	            }
@@ -281,26 +281,26 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 		}).start();
     }
 	
-    public void actionPauseOrPlay(){
+    public void actionPauseOrPlay() {
     	LocalMusic localMusic = mLocalPlayingList.get(mPlayingPosition);
-    	if(mLocalMusicPlaying){
+    	if(mLocalMusicPlaying) {
 			mLocalMusicPlaying = false;
 			mMediaPlayer.pause();
 			mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
 			mSongPath = localMusic.getPath();
 			File songFile = new File(mSongPath);
-			if(!songFile.exists()){
+			if(!songFile.exists()) {
 				UpdateMusicInfo(mPlayingPosition);
 				updateNotification("Title", "Artist", true, true);
 				return;
 			}
 			updateNotification(localMusic.getTitle(), localMusic.getArtist(), true, true);
-		}else{
-			if(mMediaPlayer != null){
+		}else {
+			if(mMediaPlayer != null) {
 				mSongPath = localMusic.getPath();
 				if(mSongPath.equals(mPlayingMusicPath)) {
 					File songFile = new File(mSongPath);
-					if(!songFile.exists()){
+					if(!songFile.exists()) {
 						UpdateMusicInfo(mPlayingPosition);
 						return;
 					}
@@ -316,7 +316,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 		}
     }
     
-    public void MusicPlay(final int position){
+    public void MusicPlay(final int position) {
     	//only used to test--stop ximalaya music playing if it was *******************************
     	pauseOnlinePlaying();
     	
@@ -327,15 +327,15 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 		mSongPath = localMusic.getPath();
 		
 		File songFile = new File(mSongPath);
-		if(!songFile.exists()){
+		if(!songFile.exists()) {
 			UpdateMusicInfo(position);
 			return;
 		}
 		
 		mUri = Uri.fromFile(songFile);
 		
-		try{
-			if(mMediaPlayer != null){
+		try {
+			if(mMediaPlayer != null) {
 				resetMediaPlayer();
 			}else {
 				mMediaPlayer = new MediaPlayer();
@@ -353,40 +353,40 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 				}
 			});
 			mMediaPlayer.prepareAsync();
-		} catch (IllegalStateException e){
+		}catch(IllegalStateException e) {
 			e.printStackTrace();
-		} catch (IOException e){
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
     }
     
     private void resetMediaPlayer() {
-    	if(mMediaPlayer.isPlaying()){
+    	if(mMediaPlayer.isPlaying()) {
 			mMediaPlayer.pause();
 			mMediaPlayer.stop();
 		}
 		mMediaPlayer.reset();
     }
     
-    public void UpdateMusicInfo(int position){
+    public void UpdateMusicInfo(int position) {
     	
     	Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
     	scanIntent.setData(Uri.fromFile(Environment.getExternalStorageDirectory()));
     	mContext.sendBroadcast(scanIntent);
 
-		if(mMediaPlayer != null && mMediaPlayer.isPlaying() && mPlayingPosition != position){
+		if(mMediaPlayer != null && mMediaPlayer.isPlaying() && mPlayingPosition != position) {
 			mLocalMusicPlaying = true;
-			if(mPlayingPosition > position){
+			if(mPlayingPosition > position) {
 				mPlayingPosition -= 1;
 			}
-		}else{
-			if(mMediaPlayer != null){
+		}else {
+			if(mMediaPlayer != null) {
 				resetMediaPlayer();
 			}
 
 			resetPlayingInfo();
 			
-			if(mPlayingPosition == mLocalPlayingList.size()-1){
+			if(mPlayingPosition == mLocalPlayingList.size()-1) {
 				mPlayingPosition = 0;
 			}
 		}
@@ -424,7 +424,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     	}
     }
     
-    public void setMusicViewInfos(){
+    public void setMusicViewInfos() {
     	LocalMusic localMusic = mLocalPlayingList.get(mPlayingPosition);
     	
     	mPlayingMusicTitle = localMusic.getTitle();
@@ -433,7 +433,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     	int tempPageIndex = getTempPageIndex();
     	mFragmentList.get(tempPageIndex).mLocalMusicListAdapter.notifyDataSetChanged();
     	
-    	Log.i(TAG, "tempPageIndex: "+tempPageIndex);
+    	//Log.i(TAG, "tempPageIndex: "+tempPageIndex);
     	
     	mMusicPlaySeekBar.setMax(localMusic.getDuration());
     	mMusicPlayName.setText(localMusic.getTitle());
@@ -441,25 +441,25 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     	int pre = (int)duration;
     	float suf = (duration-pre)*60;
         mMusicEndTime.setText(String.valueOf(pre)+":"+LocalMusicUtils.decimalFormat.format(suf));
-		mMediaPlayer.setOnCompletionListener(new OnCompletionListener(){
+		mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 			
 			@Override
-			public void onCompletion(MediaPlayer mp){
+			public void onCompletion(MediaPlayer mp) {
 				mMusicPlayPause.setBackgroundResource(R.drawable.music_pause_drawable);
 				String str = mMusicEndTime.getText().toString();
 				int result = Integer.parseInt(str.substring(str.indexOf(":")+1));
 				float duration = (float)((mMediaPlayer.getCurrentPosition())/60.0/1000.0);
 	        	int pre = (int)duration;
 	        	int suf = (int)((duration-pre)*60);
-	        	if(suf != result){
+	        	if(suf != result) {
 	        		++suf;
-	        		if(suf == 60){
+	        		if(suf == 60) {
 	        			suf = 0;
 	        			++pre;
 	        		}
 	        	}
 	        	mMusicPlayTime.setText(String.valueOf(pre)+":"+LocalMusicUtils.decimalFormat.format(suf));
-	        	if(!isPlayingListEmpty()){
+	        	if(!isPlayingListEmpty()) {
 	        		MusicPlay((mPlayingPosition+1) % mLocalPlayingList.size());
 	        	}
 			}
@@ -470,31 +470,31 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
     }
     
     public class FragmentAdapter extends FragmentPagerAdapter{
-        public FragmentAdapter(FragmentManager fragmentManager){
+        public FragmentAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
         }
         
         @Override
-        public Fragment getItem(int arg0){
+        public Fragment getItem(int arg0) {
             return mFragmentList.get(arg0);
         }
         
         @Override
-        public int getCount(){
+        public int getCount() {
             return mCountPages;
         }
     } 
     
-	public void updateNotification(String title, String artist, boolean isPlaying, boolean hasNext){
-		if(!TextUtils.isEmpty(title)){
+	public void updateNotification(String title, String artist, boolean isPlaying, boolean hasNext) {
+		if(!TextUtils.isEmpty(title)) {
 			mRemoteView.setTextViewText(R.id.txt_notifyMusicName, title);
 		}
-		if(!TextUtils.isEmpty(artist)){
+		if(!TextUtils.isEmpty(artist)) {
 			mRemoteView.setTextViewText(R.id.txt_notifyNickName, artist);
 		}
-		if(isPlaying){
+		if(isPlaying) {
 			mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_pause);
-		}else{
+		}else {
 			mRemoteView.setImageViewResource(R.id.img_notifyPlayOrPause, R.drawable.ic_play);
 		}
 		mRemoteView.setImageViewResource(R.id.img_notifyIcon, R.drawable.ic_launcher);
@@ -505,8 +505,8 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 		return mPlayingMusicPath.equals(localMusic.getPath());
 	}
 	
-	public boolean isPlayingListEmpty(){
-		if(mLocalPlayingList == null || mLocalPlayingList.size() == 0){
+	public boolean isPlayingListEmpty() {
+		if(mLocalPlayingList == null || mLocalPlayingList.size() == 0) {
     		return true;
     	}
 		
@@ -612,21 +612,21 @@ public class LocalFragment extends BaseFragment implements OnClickListener{
 	}
 	
     @Override
-	public void onDestroyView(){
+	public void onDestroyView() {
     	Log.i(TAG, "LocalFragment onDestroyView");
     	
     	mLocalMusicPlaying = false;
     	
-    	if(mLocalPlayingList != null){
+    	if(mLocalPlayingList != null) {
 			mLocalPlayingList.clear();
 			mLocalPlayingList = null;
 		}
-    	if(mFragmentList != null){
+    	if(mFragmentList != null) {
 	    	mFragmentList.clear();
 	    	mFragmentList = null;
     	}
     	
-    	if(mMediaPlayer != null){
+    	if(mMediaPlayer != null) {
     		resetMediaPlayer();
 			mMediaPlayer.release();
 			mMediaPlayer = null;

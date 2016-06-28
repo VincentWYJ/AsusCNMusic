@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.asus.cnmusic.adapter.NavigationListAdapter;
@@ -43,7 +45,7 @@ import com.asus.cnmusic.R;
 
 @TargetApi(23)
 @SuppressWarnings("deprecation")
-public class MainActivity extends ActionBarActivity implements OnClickListener{
+public class MainActivity extends ActionBarActivity implements OnClickListener {
 	private final String TAG = "AsusCNMusic";
 	
 	private final int REQUEST_CODE_ASK_PERMISSIONS = 111;
@@ -86,7 +88,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle((Activity) mContext, mDrawerLayout, mToolbar,
-                R.string.open, R.string.close){
+                R.string.open, R.string.close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -148,6 +150,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
         for(int i=0; i<mCountPages; ++i) {
         	if(i == mCurrentPageIndex) {
         		mFragmentManager.beginTransaction().add(R.id.container, mFragmentList.get(i)).commit();
+        		
+        		getSupportActionBar().setTitle(mNavigationTitles[mCurrentPageIndex]);
         	}else {
         		mFragmentManager.beginTransaction().add(R.id.container, mFragmentList.get(i)).hide(mFragmentList.get(i)).commit();
         	}
@@ -163,6 +167,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
 	    mDrawerListAdapter.notifyDataSetChanged();
 	    
 	    mDrawerLayout.closeDrawer(mNavigationLayout);
+	    
+	    getSupportActionBar().setTitle(mNavigationTitles[targetPageIndex]);
     }
     
     @Override
@@ -171,10 +177,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
         case REQUEST_CODE_ASK_PERMISSIONS:
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission Granted
+            	Log.i(TAG, "Manifest.permission.WRITE_EXTERNAL_STORAGE access succeed");
+            	
                 toPageOfLocalMusic(mPermissionPageIndex);
-            } else {
+            }else {
                 // Permission Denied
-                Log.i(TAG, "Manifest.permission.WRITE_EXTERNAL_STORAGE access failed.");
+                Log.i(TAG, "Manifest.permission.WRITE_EXTERNAL_STORAGE access failed");
             }
             break;
         default:
@@ -203,7 +211,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
             intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             Uri uri = Uri.fromParts(SCHEME, packageName, null);
             intent.setData(uri);
-        } else {
+        }else {
             final String appPkgName = (apiLevel == 8 ? APP_PKG_NAME_22 : APP_PKG_NAME_21);
             intent.setAction(Intent.ACTION_VIEW);
             intent.setClassName(APP_DETAILS_PACKAGE_NAME, APP_DETAILS_CLASS_NAME);
@@ -212,7 +220,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
         context.startActivity(intent);
     }
 
-    public List<NavigationListBean> initDrawerList(){
+    public List<NavigationListBean> initDrawerList() {
         List<NavigationListBean> drawerList = new ArrayList<NavigationListBean>();
         
         NavigationListBean drawerListBean = new NavigationListBean(mNavigationTitles[0], R.drawable.online_ic_pressed_drawable);
@@ -233,7 +241,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       switch (item.getItemId()){
+       switch (item.getItemId()) {
            case R.id.action_setting:
            	
                break;
@@ -258,12 +266,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
 		default:
 			break;
 		}
+		
 		mExitDialog.cancel();
 	}
 
     @Override
     public void onBackPressed() {
 	    Log.i(TAG, "onBackPressed");
+	    
 	    mExitDialog = new Dialog(mContext);
 	    mExitDialog.setContentView(R.layout.main_exit_dialog);
 	    mExitDialog.setCanceledOnTouchOutside(true);
@@ -275,7 +285,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
     }
     
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
     	super.onDestroy();
     	
     	Log.i(TAG, "MainActivity onDestroy");
