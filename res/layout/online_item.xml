@@ -38,7 +38,7 @@
             android:layout_below="@+id/trackname"
             android:layout_alignParentBottom="true"
             android:text="@string/music_info"
-            android:textColor="@color/text_pressed"
+            android:textColor="@color/text_normal"
             android:textSize="@dimen/music_info_leftbottom" />
         
     </RelativeLayout>

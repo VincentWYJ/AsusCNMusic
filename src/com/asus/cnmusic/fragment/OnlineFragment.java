@@ -26,6 +26,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -382,11 +383,11 @@ public class OnlineFragment extends BaseFragment implements OnClickListener {
 				mTextView.setText(playingName);  //设置播放栏位信息
 				if(!TextUtils.isEmpty(coverLarge)) {
 					Glide.with(mContext).load(coverLarge).into(mSoundCover);  //设置播放栏图标，可设置占位图/错误图
-					updateRemoteViewIcon(coverLarge);  //更新notify栏图标
 				}else {
-					Log.i(TAG, "download img null");
+					Log.i(TAG, "icon is null");
 					Glide.with(mContext).load(R.drawable.ic_error_image).into(mSoundCover);
 				}
+				updateRemoteViewIcon(coverLarge);  //更新notify栏图标
 				updateNotification(playingName, playingArtist, true, true);  //设置notify栏位信息
 			}
 			updateButtonStatus();
@@ -415,12 +416,16 @@ public class OnlineFragment extends BaseFragment implements OnClickListener {
 				public void run() {
 					// TODO Auto-generated method stub
 					 try {
-						playingBitmap = Glide.with(mContext)  
-						    .load(coverUrl)  
-						    .asBitmap()
-						    .centerCrop()  
-						    .into(500, 500)  
-						    .get();
+						 if(!TextUtils.isEmpty(coverLarge)) {
+							playingBitmap = Glide.with(mContext)
+							    .load(coverUrl)
+							    .asBitmap()
+							    .centerCrop()
+							    .into(500, 500)
+							    .get();
+						 }else {
+							 playingBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_error_image);
+						 }
 						setNotificationIcon();
 					}catch(InterruptedException e) {
 						// TODO Auto-generated catch block

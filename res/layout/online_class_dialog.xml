@@ -31,7 +31,7 @@
 	        android:drawableEnd="@drawable/ic_class_more_close"
 	        android:textSize="@dimen/music_title"
 	        android:textStyle="bold"
-	        android:textColor="@color/text_normal"
+	        android:textColor="@drawable/text_color"
 		    android:text="@string/cancel" />
     
     </RelativeLayout>
