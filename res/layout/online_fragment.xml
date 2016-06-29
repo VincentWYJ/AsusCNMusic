@@ -19,7 +19,7 @@
 	        android:layout_marginTop="5dp"
 	        android:layout_marginBottom="5dp"
 	        android:layout_marginEnd="0dp"
-	        android:background="@color/line_horizontal" />
+	        android:background="@color/line_green" />
 
         <TextView
             android:id="@+id/message"
@@ -128,7 +128,7 @@
         	android:layout_gravity="center"
 	        android:layout_marginStart="10dp"
 	        android:layout_marginEnd="5dp"
-	        android:background="@color/line_vertical" />
+	        android:background="@color/line_black" />
             
 	    <Button
 	        android:id="@+id/class_more"
@@ -153,13 +153,6 @@
         android:layout_below="@id/table_relativelayout"
         android:layout_above="@id/control_layout"
         android:background="@color/global_bg" >
-        <!-- 
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="top" />
-         -->
     </android.support.v4.view.ViewPager>
 
 </RelativeLayout>

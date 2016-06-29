@@ -18,8 +18,8 @@
 	
 	<color name="online_class_item_pressed_bg">#FF5BBD72</color>
 	
-	<color name="line_horizontal">#FF5BBD72</color>
-	<color name="line_vertical">#FF000000</color>
+	<color name="line_green">#FF5BBD72</color>
+	<color name="line_black">#FF000000</color>
 	
 	<color name="colorPrimaryDark">#FF22BD72</color>
     <color name="colorPrimary">#FF5BBD72</color>
@@ -29,7 +29,7 @@
 	<color name="list_item_bg_normal">#FFFFeeee</color>
     
 	<color name="button_pressed_bg">#FF5BBD72</color>
-    <color name="button_normal_bg">#FFE0E0E0</color>
+    <color name="button_normal_bg">#FFFFFFFF</color>
     
     <color name="cursor">#FF000000</color>
     <color name="progress">#FF5BBD72</color>

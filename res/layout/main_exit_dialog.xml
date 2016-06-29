@@ -11,7 +11,6 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="@dimen/music_title"
-        android:background="@color/music_title_bg"
 		android:padding="10dp"
         android:textColor="@color/text_pressed"
 	    android:text="@string/exit_title" />
@@ -20,16 +19,18 @@
         android:layout_width="match_parent"
        	android:layout_height="1dp"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="0dp"
         android:layout_marginEnd="0dp"
-        android:background="@color/line_horizontal" />
+        android:background="@color/line_green" />
     
     <TextView 
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/music_info_lefttop"
-		android:padding="10dp"
+        android:gravity="center"
+		android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
         android:textColor="@color/text_pressed"
 	    android:text="@string/exit_message" />
 	
@@ -37,30 +38,43 @@
         android:layout_width="match_parent"
        	android:layout_height="1dp"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginEnd="0dp"
-        android:background="@color/line_horizontal" />
+        android:background="@color/line_green" />
     
     <LinearLayout
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal"
-	    android:background="@color/dialog_bg" >
+	    android:layout_height="45dp"
+	    android:orientation="horizontal" >
+	    
 	    <Button 
 		    android:id="@+id/exit_cancel"
 		    style="@style/ExitDialogBtn"
-			android:layout_marginEnd="5dp"
+			android:layout_marginEnd="1dp"
 		    android:text="@string/cancel" />
+	    
+	    <View
+            android:layout_width="1dp"
+        	android:layout_height="wrap_content"
+	        android:background="@color/line_green" />
+	    
 	    <Button 
 		    android:id="@+id/exit_minimize"
 		    style="@style/ExitDialogBtn"
-		    android:layout_marginEnd="5dp"
+		    android:layout_marginEnd="1dp"
 		    android:text="@string/minimize" />
+	    
+	    <View
+            android:layout_width="1dp"
+        	android:layout_height="wrap_content"
+	        android:background="@color/line_green" />
+	    
 		<Button 
 		    android:id="@+id/exit_comfirm"
 		    style="@style/ExitDialogBtn"
 		    android:text="@string/confirm" />
+		
 	</LinearLayout>
 
 </LinearLayout>
