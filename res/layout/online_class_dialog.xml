@@ -8,9 +8,8 @@
     <TextView 
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:textSize="@dimen/music_title"
-		android:padding="10dp"
+		android:padding="8dp"
 		android:background="@color/button_normal_bg"
         android:textColor="@color/text_pressed"
 	    android:text="@string/online_class_select" />
@@ -49,7 +48,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/music_title"
-		android:padding="10dp"
         android:textStyle="bold"
         android:textColor="@color/text_pressed"
         android:background="@drawable/button_bg_color"

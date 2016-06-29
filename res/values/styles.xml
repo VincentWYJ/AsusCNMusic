@@ -69,7 +69,7 @@
     <style name="SeekBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:thumb">@drawable/indicator</item>
+        <item name="android:thumb">@drawable/ic_indicator</item>
         <item name="android:thumbOffset">0dp</item>
         <item name="android:progressTint">@color/progress</item>
         <item name="android:maxHeight">5dp</item>
