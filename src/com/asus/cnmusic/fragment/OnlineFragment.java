@@ -27,6 +27,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -201,7 +202,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	public void showMoreClassDialog() {
-		mClassDialog = new Dialog(mContext);
+		mClassDialog = new Dialog(mContext, R.style.DialogTitle);
 		mClassDialog.setContentView(R.layout.online_class_dialog);
 		mClassDialog.setCanceledOnTouchOutside(true);
         mGridView = (GridView) mClassDialog.findViewById(R.id.class_gridview);
@@ -231,6 +232,7 @@ public class OnlineFragment extends BaseFragment implements OnClickListener {
         	}
         };
         mGridView.setAdapter(mSimpleAdapter);
+        mGridView.setSelector(new ColorDrawable(R.color.transparent));  //去除选择某一项时出现的黄色边框
         
         mClassDialog.show();
         mCancelBtn.setOnClickListener(this);

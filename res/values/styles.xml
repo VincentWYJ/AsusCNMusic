@@ -102,7 +102,7 @@
     <style name="ExitDialogBtn">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/music_title</item>
         <item name="android:textStyle">bold</item>
@@ -110,4 +110,9 @@
         <item name="android:background">@drawable/button_bg_color</item>
     </style>
 
+    <style name="DialogTitle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>//无标题
+    </style>
+    
 </resources>

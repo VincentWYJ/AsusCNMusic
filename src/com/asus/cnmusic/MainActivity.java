@@ -11,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -32,7 +31,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import com.asus.cnmusic.adapter.NavigationListAdapter;
@@ -274,7 +272,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     public void onBackPressed() {
 	    Log.i(TAG, "onBackPressed");
 	    
-	    mExitDialog = new Dialog(mContext);
+	    mExitDialog = new Dialog(mContext, R.style.DialogTitle);
 	    mExitDialog.setContentView(R.layout.main_exit_dialog);
 	    mExitDialog.setCanceledOnTouchOutside(true);
 	    ((Button) mExitDialog.findViewById(R.id.exit_comfirm)).setOnClickListener(this);

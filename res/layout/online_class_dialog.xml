@@ -11,7 +11,7 @@
 	    android:padding="10dp"
 	    android:background="@color/button_normal_bg" >
 	    
-	    <TextView 
+	    <TextView
 		    android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_centerVertical="true"
@@ -20,7 +20,7 @@
 	        android:textColor="@color/text_pressed"
 		    android:text="@string/online_class_select" />
 	    
-	    <Button 
+	    <Button
 		    android:id="@+id/class_cancel"
 		    android:layout_width="45dp"
 	        android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:numColumns="3"
 		android:gravity="center"
-		android:padding="2dp"
+		android:padding="5dp"
 		android:background="@color/dialog_bg"
         android:stretchMode="columnWidth" />
 
