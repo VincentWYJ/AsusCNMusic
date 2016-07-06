@@ -568,9 +568,9 @@ public class OnlineFragment extends BaseFragment implements OnClickListener {
 	
 	public void pauseLocalPlaying() {
 		//only used to test--stop local music playing if it was *******************************
-		if(mPlayingInLocal) {
+		if(mPlayInLocal) {
 			
-			mPlayingInLocal = false;
+			mPlayInLocal = false;
 			
 			mLocalFragment = LocalFragment.getInstance();
 			if(mLocalFragment.mMediaPlayer!=null && mLocalFragment.mMediaPlayer.isPlaying()) {

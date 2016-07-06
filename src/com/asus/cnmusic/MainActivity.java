@@ -46,7 +46,8 @@ import com.asus.cnmusic.R;
 public class MainActivity extends ActionBarActivity implements OnClickListener {
 	private final String TAG = "AsusCNMusic";
 	
-	private final int REQUEST_CODE_ASK_PERMISSIONS = 111;
+	private final int REQUEST_CODE_ASK_PERMISSION = 111;
+	private final String EXTERNAL_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 	
 	private Context mContext;
 	
@@ -109,11 +110,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int targetPageIndex, long id) {
             	if(mPermissionPageIndex == targetPageIndex) {
-            		int hasWriteStoragePermission = ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            		int hasWriteStoragePermission = ContextCompat.checkSelfPermission(mContext, EXTERNAL_PERMISSION);
             		if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
             		    Log.i(TAG, TAG+" has not Write External Storage Permission");
 
-            		    if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            		    if (!shouldShowRequestPermissionRationale(EXTERNAL_PERMISSION)) {
             		         //用户拒绝了权限申请并选择了不再显示
             		        showPermissionDialog("You need to allow access to external store", 
             		        	new DialogInterface.OnClickListener() {
@@ -131,8 +132,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             		        return;
             		    }
 
-            		    ActivityCompat.requestPermissions((Activity) mContext, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
-            		        REQUEST_CODE_ASK_PERMISSIONS);
+            		    ActivityCompat.requestPermissions((Activity) mContext, new String[] {EXTERNAL_PERMISSION},
+            		        REQUEST_CODE_ASK_PERMISSION);
             		    return;
             		}
             	}
@@ -172,7 +173,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-        case REQUEST_CODE_ASK_PERMISSIONS:
+        case REQUEST_CODE_ASK_PERMISSION:
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission Granted
             	Log.i(TAG, "Manifest.permission.WRITE_EXTERNAL_STORAGE access succeed");
@@ -181,6 +182,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             }else {
                 // Permission Denied
                 Log.i(TAG, "Manifest.permission.WRITE_EXTERNAL_STORAGE access failed");
+                
+                mDrawerLayout.closeDrawer(mNavigationLayout);
             }
             break;
         default:

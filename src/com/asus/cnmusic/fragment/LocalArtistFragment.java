@@ -220,11 +220,11 @@ public class LocalArtistFragment extends BaseFragment {
     				new String[]{mArtistName}, LocalMusicUtils.mMusicSortOrder);
     	}
     	
-    	if(mLocalPlayingList != null) {
-			mLocalPlayingList.clear();
-			mLocalPlayingList = null;
+    	if(mLocalPlayList != null) {
+			mLocalPlayList.clear();
+			mLocalPlayList = null;
 		}
-		mLocalPlayingList = new ArrayList<LocalMusic>(mLocalMusicList);
+		mLocalPlayList = new ArrayList<LocalMusic>(mLocalMusicList);
 		
 		mLocalFragment.isPlayingListEmpty();
     }

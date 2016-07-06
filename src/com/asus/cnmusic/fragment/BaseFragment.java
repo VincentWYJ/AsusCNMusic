@@ -43,9 +43,9 @@ public class BaseFragment extends Fragment {
 	public List<Map<String, Object>> mLocalMusicMapList;
 	public SimpleAdapter mLocalMusicListAdapter;
 	
-	public static boolean mPlayingInLocal = false;  //之前是否在本地音乐进行过播放, 用于和在线音乐进行控制切换
+	public static boolean mPlayInLocal = false;  //之前是否在本地音乐进行过播放, 用于和在线音乐进行控制切换
 	
-	public static List<LocalMusic> mLocalPlayingList;
+	public static List<LocalMusic> mLocalPlayList;
 	
 	public static int mPlayingPosition = 0;
 	

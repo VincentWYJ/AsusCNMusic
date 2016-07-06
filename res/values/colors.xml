@@ -13,12 +13,14 @@
 	
 	<color name="music_title_bg">#FFE0E0E0</color>
 	
+	<color name="music_control_bg">#FFF5F5F5</color>
+	
 	<color name="list_item_pressed_bg">#FFFFeeee</color>
 	<color name="list_item_normal_bg">#FFFFFFFF</color>
 	
 	<color name="online_class_item_pressed_bg">#FF5BBD72</color>
 	
-	<color name="line_green">#FF5BBD72</color>
+	<color name="line_green">#FF22BD72</color>
 	<color name="line_black">#FF000000</color>
 	
 	<color name="colorPrimaryDark">#FF22BD72</color>

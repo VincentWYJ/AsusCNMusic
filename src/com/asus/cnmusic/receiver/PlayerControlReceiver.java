@@ -16,9 +16,9 @@ public class PlayerControlReceiver extends BroadcastReceiver {
 		XmPlayerManager mXmPlayerManager = XmPlayerManager.getInstance(context);
 		LocalFragment mLocalFragment = LocalFragment.getInstance();
 		String action = intent.getAction();
-		if(BaseFragment.mPlayingInLocal) {
+		if(BaseFragment.mPlayInLocal) {
 			if(!mLocalFragment.isPlayingListEmpty()) {
-				int size = BaseFragment.mLocalPlayingList.size();
+				int size = BaseFragment.mLocalPlayList.size();
 				int targetPosition;
 				if(LocalMusicUtils.ACTION_CONTROL_PLAY_PAUSE.equals(action)) {
 					mLocalFragment.actionPauseOrPlay();

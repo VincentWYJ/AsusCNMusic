@@ -12,7 +12,6 @@ import com.asus.cnmusic.view.ViewHolder;
 import com.asus.cnmusic.R;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,8 +62,8 @@ public class LocalMusicFragment extends BaseFragment {
     	
     	mLocalMusicList = GetLocalMusic.getLocalMusic(mContext, null, null, LocalMusicUtils.mMusicSortOrder);
     	
-      	if(mLocalPlayingList == null) {
-      		mLocalPlayingList = new ArrayList<LocalMusic>(mLocalMusicList);
+      	if(mLocalPlayList == null) {
+      		mLocalPlayList = new ArrayList<LocalMusic>(mLocalMusicList);
       	}
       	
         getLocalMusicMapList();
@@ -145,6 +144,7 @@ public class LocalMusicFragment extends BaseFragment {
     		mLocalMusicMapList = new ArrayList<Map<String, Object>>();
     	}
     	mLocalMusicMapList.clear();
+    	
         for(int i=0; i<mLocalMusicList.size(); ++i) {
         	LocalMusic localMusic = mLocalMusicList.get(i);
         	//Log.i(TAG, localMusic.getTitle());  //打印歌曲名称查看排序情况
@@ -210,11 +210,11 @@ public class LocalMusicFragment extends BaseFragment {
     		mLocalMusicList = GetLocalMusic.getLocalMusic(mContext, null, null, LocalMusicUtils.mMusicSortOrder);
     	}
     	
-    	if(mLocalPlayingList != null) {
-			mLocalPlayingList.clear();
-			mLocalPlayingList = null;
+    	if(mLocalPlayList != null) {
+			mLocalPlayList.clear();
+			mLocalPlayList = null;
 		}
-		mLocalPlayingList = new ArrayList<LocalMusic>(mLocalMusicList);
+		mLocalPlayList = new ArrayList<LocalMusic>(mLocalMusicList);
 		
 		mLocalFragment.isPlayingListEmpty();
     }

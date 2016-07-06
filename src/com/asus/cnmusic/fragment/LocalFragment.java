@@ -84,12 +84,12 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 		switch(v.getId()) {
 		case R.id.music_play_pre:
 			if(!isPlayingListEmpty() && mMediaPlayer!=null) {
-				MusicPlay((mLocalPlayingList.size()+mPlayingPosition-1) % mLocalPlayingList.size());
+				MusicPlay((mLocalPlayList.size()+mPlayingPosition-1) % mLocalPlayList.size());
 			}
 			break;
 		case R.id.music_play_next:
 			if(!isPlayingListEmpty() && mMediaPlayer!=null) {
-				MusicPlay((mPlayingPosition+1) % mLocalPlayingList.size());
+				MusicPlay((mPlayingPosition+1) % mLocalPlayList.size());
 			}
 			break;
 		case R.id.music_play_pause:
@@ -282,7 +282,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
     }
 	
     public void actionPauseOrPlay() {
-    	LocalMusic localMusic = mLocalPlayingList.get(mPlayingPosition);
+    	LocalMusic localMusic = mLocalPlayList.get(mPlayingPosition);
     	if(mLocalMusicPlaying) {
 			mLocalMusicPlaying = false;
 			mMediaPlayer.pause();
@@ -320,7 +320,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
     	//only used to test--stop ximalaya music playing if it was *******************************
     	pauseOnlinePlaying();
     	
-    	final LocalMusic localMusic = mLocalPlayingList.get(position);
+    	final LocalMusic localMusic = mLocalPlayList.get(position);
     	
     	mLocalMusicPlaying = false;
 		
@@ -386,7 +386,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 
 			resetPlayingInfo();
 			
-			if(mPlayingPosition == mLocalPlayingList.size()-1) {
+			if(mPlayingPosition == mLocalPlayList.size()-1) {
 				mPlayingPosition = 0;
 			}
 		}
@@ -425,7 +425,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
     }
     
     public void setMusicViewInfos() {
-    	LocalMusic localMusic = mLocalPlayingList.get(mPlayingPosition);
+    	LocalMusic localMusic = mLocalPlayList.get(mPlayingPosition);
     	
     	mPlayingMusicTitle = localMusic.getTitle();
     	mPlayingMusicPath = localMusic.getPath();
@@ -460,7 +460,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 	        	}
 	        	mMusicPlayTime.setText(String.valueOf(pre)+":"+LocalMusicUtils.decimalFormat.format(suf));
 	        	if(!isPlayingListEmpty()) {
-	        		MusicPlay((mPlayingPosition+1) % mLocalPlayingList.size());
+	        		MusicPlay((mPlayingPosition+1) % mLocalPlayList.size());
 	        	}
 			}
 		});
@@ -506,7 +506,7 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	public boolean isPlayingListEmpty() {
-		if(mLocalPlayingList == null || mLocalPlayingList.size() == 0) {
+		if(mLocalPlayList == null || mLocalPlayList.size() == 0) {
     		return true;
     	}
 		
@@ -600,8 +600,8 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 	
 	public void pauseOnlinePlaying() {
 		//only used to test--stop online music playing if it was *******************************
-		if(!mPlayingInLocal) {
-			mPlayingInLocal = true;
+		if(!mPlayInLocal) {
+			mPlayInLocal = true;
 			
 			mXmPlayerManager = XmPlayerManager.getInstance(mContext);
 	    	if(mXmPlayerManager.isPlaying())
@@ -617,9 +617,9 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
     	
     	mLocalMusicPlaying = false;
     	
-    	if(mLocalPlayingList != null) {
-			mLocalPlayingList.clear();
-			mLocalPlayingList = null;
+    	if(mLocalPlayList != null) {
+			mLocalPlayList.clear();
+			mLocalPlayList = null;
 		}
     	if(mFragmentList != null) {
 	    	mFragmentList.clear();

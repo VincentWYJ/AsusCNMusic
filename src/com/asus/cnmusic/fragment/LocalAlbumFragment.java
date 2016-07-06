@@ -123,10 +123,10 @@ public class LocalAlbumFragment extends BaseFragment {
     		String albumNameInSet = iter.next();
     		String albumArtist = null;
     		for(int i=0; i<mAlbumInfoList.size(); ++i) {
-    			LocalMusic mLocalPlayingList = mAlbumInfoList.get(i);
-    			if(albumNameInSet.equals(mLocalPlayingList.getAlbum())) {
+    			LocalMusic localMusic = mAlbumInfoList.get(i);
+    			if(albumNameInSet.equals(localMusic.getAlbum())) {
     				albumCountArray[index] += 1;
-    				albumArtist = mLocalPlayingList.getArtist();
+    				albumArtist = localMusic.getArtist();
     			}
     		}
     		Map<String, Object> map = new HashMap<String, Object>();
@@ -150,13 +150,13 @@ public class LocalAlbumFragment extends BaseFragment {
     	mLocalMusicMapList.clear();
     	
         for(int i=0; i<mLocalMusicList.size(); ++i) {
-        	LocalMusic mLocalPlayingList = mLocalMusicList.get(i);
+        	LocalMusic localMusic = mLocalMusicList.get(i);
         	Map<String, Object> map = new HashMap<String, Object>();
-        	map.put("title", mLocalPlayingList.getTitle());
-        	map.put("path", mLocalPlayingList.getPath());
-        	map.put("album", mLocalPlayingList.getAlbum());
-        	map.put("artist", mLocalPlayingList.getArtist());
-        	float duration = (float) (mLocalPlayingList.getDuration()/60.0/1000.0);
+        	map.put("title", localMusic.getTitle());
+        	map.put("path", localMusic.getPath());
+        	map.put("album", localMusic.getAlbum());
+        	map.put("artist", localMusic.getArtist());
+        	float duration = (float) (localMusic.getDuration()/60.0/1000.0);
         	int pre = (int)duration;
         	float suf = (duration-pre)*60;
         	map.put("duration",String.valueOf(pre)+":"+LocalMusicUtils.decimalFormat.format(suf));
@@ -183,10 +183,10 @@ public class LocalAlbumFragment extends BaseFragment {
     			}else {
     				holder = (ViewHolder) convertView.getTag();
     			}
-    			Map<String, Object> mLocalPlayingListMap = mLocalMusicMapList.get(position);
-    			holder.title.setText((CharSequence) mLocalPlayingListMap.get("title"));
-    			holder.intro.setText((CharSequence) mLocalPlayingListMap.get("artist"));
-    			holder.status.setText((CharSequence) mLocalPlayingListMap.get("duration"));
+    			Map<String, Object> localMusicMap = mLocalMusicMapList.get(position);
+    			holder.title.setText((CharSequence) localMusicMap.get("title"));
+    			holder.intro.setText((CharSequence) localMusicMap.get("artist"));
+    			holder.status.setText((CharSequence) localMusicMap.get("duration"));
     			//判断歌曲相同的条件为完整文件名(包括路径路径)
     			if(mPlayingInAlbumMusicList && mLocalFragment.mMediaPlayer!=null 
     					&& mLocalFragment.isMusicEquals(mLocalMusicList.get(position))) {
@@ -223,11 +223,11 @@ public class LocalAlbumFragment extends BaseFragment {
     				new String[]{mAlbumName}, LocalMusicUtils.mMusicSortOrder);
     	}
     	
-    	if(mLocalPlayingList != null) {
-			mLocalPlayingList.clear();
-			mLocalPlayingList = null;
+    	if(mLocalPlayList != null) {
+			mLocalPlayList.clear();
+			mLocalPlayList = null;
 		}
-		mLocalPlayingList = new ArrayList<LocalMusic>(mLocalMusicList);
+		mLocalPlayList = new ArrayList<LocalMusic>(mLocalMusicList);
 		
 		mLocalFragment.isPlayingListEmpty();
     }

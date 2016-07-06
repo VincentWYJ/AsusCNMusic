@@ -59,8 +59,8 @@ public class LocalHistoryFragment extends BaseFragment {
     	
     	mLocalMusicList = mLocalFragment.getHistoryMusicList();
     	
-      	if(mLocalPlayingList == null) {
-      		mLocalPlayingList = new ArrayList<LocalMusic>(mLocalMusicList);
+      	if(mLocalPlayList == null) {
+      		mLocalPlayList = new ArrayList<LocalMusic>(mLocalMusicList);
       	}
       	
         getLocalMusicMapList();
@@ -198,11 +198,11 @@ public class LocalHistoryFragment extends BaseFragment {
     		mLocalMusicList = mLocalFragment.getHistoryMusicList();
     	}
     	
-    	if(mLocalPlayingList != null) {
-			mLocalPlayingList.clear();
-			mLocalPlayingList = null;
+    	if(mLocalPlayList != null) {
+			mLocalPlayList.clear();
+			mLocalPlayList = null;
 		}
-		mLocalPlayingList = new ArrayList<LocalMusic>(mLocalMusicList);
+		mLocalPlayList = new ArrayList<LocalMusic>(mLocalMusicList);
 		
 		mLocalFragment.isPlayingListEmpty();
     }
