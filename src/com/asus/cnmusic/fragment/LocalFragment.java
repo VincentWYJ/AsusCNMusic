@@ -513,19 +513,18 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 		return false;
 	}
 	
-	private HistoryMusicNoteDao getHistoryMusicNoteDao() {
+	private DaoSession getDaoSession() {
 		DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(mContext, "AsusCNMusic.db", null);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		DaoMaster daoMaster = new DaoMaster(db);
-		DaoSession daoSession = daoMaster.newSession();
 		
-		return daoSession.getHistoryMusicNoteDao();
+		return daoMaster.newSession();
 	}
 	
 	public List<LocalMusic> getHistoryMusicList() {
 	    List<LocalMusic> mLocalMusicsMusicList = new ArrayList<LocalMusic>();
 
-	    HistoryMusicNoteDao historyMusicNoteDao = getHistoryMusicNoteDao();
+	    HistoryMusicNoteDao historyMusicNoteDao = getDaoSession().getHistoryMusicNoteDao();
 	    List<HistoryMusicNote> historyMusicList = historyMusicNoteDao.loadAll();
 	    for(int i=0; i<historyMusicList.size(); ++i) {
 	        HistoryMusicNote historyMusicNote = historyMusicList.get(i);
@@ -547,10 +546,10 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 	}
 
 	public void insertHistoryMusic(LocalMusic localMusicArg) {
-	    HistoryMusicNoteDao musicHistoryNoteDao = getHistoryMusicNoteDao();
-	    HistoryMusicNote musicHistoryNote;
+		HistoryMusicNoteDao historyMusicNoteDao = getDaoSession().getHistoryMusicNoteDao();
+	    HistoryMusicNote historyMusicNote;
 	    int count = 1;
-	    Query<HistoryMusicNote> historyMusicQuery = musicHistoryNoteDao.queryBuilder().where(
+	    Query<HistoryMusicNote> historyMusicQuery = historyMusicNoteDao.queryBuilder().where(
 	    		HistoryMusicNoteDao.Properties.Title.eq(localMusicArg.getTitle()), 
 	    		HistoryMusicNoteDao.Properties.Path.eq(localMusicArg.getPath()),
 	    		HistoryMusicNoteDao.Properties.Album.eq(localMusicArg.getAlbum()),
@@ -563,12 +562,12 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 	    * 条件写成historyMusicList.size == 1也无碍
 	    */
 	    if(historyMusicList.size() > 0) {
-	        musicHistoryNote = (HistoryMusicNote) historyMusicList.get(0);
-	        count = musicHistoryNote.getCount()+1;
-	        musicHistoryNote.setCount(count);
-	        musicHistoryNoteDao.update(musicHistoryNote);
+	        historyMusicNote = (HistoryMusicNote) historyMusicList.get(0);
+	        count = historyMusicNote.getCount()+1;
+	        historyMusicNote.setCount(count);
+	        historyMusicNoteDao.update(historyMusicNote);
 	    }else {
-	        musicHistoryNote = new HistoryMusicNote(
+	        historyMusicNote = new HistoryMusicNote(
 	        null, 
 	        localMusicArg.getTitle(), 
 	        localMusicArg.getAlbum(), 
@@ -576,15 +575,15 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 	        localMusicArg.getDuration(), 
 	        localMusicArg.getPath(), 
 	        count);
-	        musicHistoryNoteDao.insert(musicHistoryNote);
+	        historyMusicNoteDao.insert(historyMusicNote);
 	    }
 	}
 
 	public void deleteHistoryMusic(LocalMusic localMusicArg) {
-	    HistoryMusicNoteDao musicHistoryNoteDao = getHistoryMusicNoteDao();
-	    HistoryMusicNote musicHistoryNote;
+		HistoryMusicNoteDao historyMusicNoteDao = getDaoSession().getHistoryMusicNoteDao();
+	    HistoryMusicNote historyMusicNote;
 	    Long key;
-	    Query<HistoryMusicNote> historyMusicQuery = musicHistoryNoteDao.queryBuilder().where(
+	    Query<HistoryMusicNote> historyMusicQuery = historyMusicNoteDao.queryBuilder().where(
 	    		HistoryMusicNoteDao.Properties.Title.eq(localMusicArg.getTitle()), 
 	    		HistoryMusicNoteDao.Properties.Path.eq(localMusicArg.getPath()),
 	    		HistoryMusicNoteDao.Properties.Album.eq(localMusicArg.getAlbum()),
@@ -592,9 +591,9 @@ public class LocalFragment extends BaseFragment implements OnClickListener {
 	    ).build();
 	    List<HistoryMusicNote> historyMusicList = historyMusicQuery.list();
 	    if(historyMusicList.size() > 0) {
-	        musicHistoryNote = (HistoryMusicNote) historyMusicList.get(0);
-	        key = musicHistoryNoteDao.getKey(musicHistoryNote);
-	        musicHistoryNoteDao.deleteByKey(key);
+	        historyMusicNote = (HistoryMusicNote) historyMusicList.get(0);
+	        key = historyMusicNoteDao.getKey(historyMusicNote);
+	        historyMusicNoteDao.deleteByKey(key);
 	    }
 	}
 	
